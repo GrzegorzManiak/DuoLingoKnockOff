@@ -9,7 +9,7 @@ namespace DuoLingoKnockOff.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class AuthController(IUserRepository userRepository, ITokenService tokenService) : ControllerBase
+public class AuthController(IUserRepository userRepository, IUserStreakRepository userStreakRepository, ITokenService tokenService) : ControllerBase
 {
     [HttpPost("register")]
     public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
@@ -17,8 +17,8 @@ public class AuthController(IUserRepository userRepository, ITokenService tokenS
         var (usernameCased, usernameUncased) = UsernameHelper.GetUsernameVariants(registerDto.Username);
         if (await userRepository.GetUserByUsernameAsync(usernameUncased) != null)
             return BadRequest("Username is taken");
-
         var hashedPassword = BCrypt.Net.BCrypt.HashPassword(registerDto.Password);
+        
         var user = new User
         {
             UsernameCased = usernameCased,
@@ -30,7 +30,19 @@ public class AuthController(IUserRepository userRepository, ITokenService tokenS
             LastActive = DateTime.UtcNow
         };
         
+        var streak = new UserStreak
+        {
+            CurrentStreak = 0,
+            MaxStreak = 0,
+            LastSuccessfulAttempt = DateTime.UtcNow,
+            CurrentStreakStartDate = DateTime.UtcNow,
+            User = user,
+            UserId = user.Id
+        };
+        
+        user.Streak = streak;
         await userRepository.AddAsync(user);
+        await userStreakRepository.AddAsync(streak);
         await userRepository.SaveAllAsync();
         
         return new UserDto
