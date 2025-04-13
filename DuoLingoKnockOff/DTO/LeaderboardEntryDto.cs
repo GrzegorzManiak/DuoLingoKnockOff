@@ -4,6 +4,7 @@ public class LeaderboardEntryDto
 {
     public int UserId { get; set; }
     public string Username { get; set; }
+    public string UsernameCased { get; set; }
     public int TotalScore { get; set; }
     
     // TODO: If the ui feels too empty for this ill add a break

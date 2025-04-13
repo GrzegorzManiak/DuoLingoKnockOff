@@ -36,7 +36,8 @@ public class AuthController(IUserRepository userRepository, ITokenService tokenS
         return new UserDto
         {
             Id = user.Id,
-            Username = user.UsernameCased,
+            Username = user.UsernameUncased,
+            UsernameCased = user.UsernameCased,
             Token = tokenService.CreateToken(user),
             PreferredLanguage = user.PreferredLanguage
         };
@@ -57,7 +58,8 @@ public class AuthController(IUserRepository userRepository, ITokenService tokenS
         return new UserDto
         {
             Id = user.Id,
-            Username = user.UsernameCased,
+            Username = user.UsernameUncased,
+            UsernameCased = user.UsernameCased,
             Token = tokenService.CreateToken(user),
             PreferredLanguage = user.PreferredLanguage
         };

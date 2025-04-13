@@ -24,13 +24,14 @@ public class LanguageRepository(ApplicationContext context, IOptions<AppConfig> 
         // -- Get completed challenges for the given language, group the by the user, 
         //    select all users and sum their scores and count their completed challenges
         //    sort by their total score and take the top x users
-        var topUsers = await _context.UserProgresses
+        var topUsers = await _context.UserProgress
             .Where(up => up.Challenge.LanguageId == languageId)
             .GroupBy(up => up.UserId)
             .Select(g => new LeaderboardEntryDto
             {
                 UserId = g.Key,
                 Username = g.First().User.UsernameUncased,
+                UsernameCased = g.First().User.UsernameCased,
                 TotalScore = g.Sum(up => up.Score),
                 CompletedChallenges = g.Count(up => up.Completed)
             })

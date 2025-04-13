@@ -11,7 +11,7 @@ public class ApplicationContext(DbContextOptions<ApplicationContext> options) : 
     public DbSet<Language> Languages { get; set; }
     public DbSet<Challenge> Challenges { get; set; }
     public DbSet<UserStreak> UserStreaks { get; set; }
-    public DbSet<UserProgress> UserProgresses { get; set; }
+    public DbSet<UserProgress> UserProgress { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -21,27 +21,31 @@ public class ApplicationContext(DbContextOptions<ApplicationContext> options) : 
         // -- Relationships
         modelBuilder.Entity<Challenge>()
             .HasOne(c => c.Language)
-            .WithMany(l => l.Challenges)
+            .WithMany()
             .HasForeignKey(c => c.LanguageId);
             
-        modelBuilder.Entity<UserProgress>()
-            .HasKey(up => up.Id);
-            
-        modelBuilder.Entity<UserProgress>()
-            .HasOne(up => up.User)
-            .WithMany(u => u.Progresses)
-            .HasForeignKey(up => up.UserId);
-            
-        modelBuilder.Entity<UserProgress>()
-            .HasOne(up => up.Challenge)
-            .WithOne(c => c.UserProgress)
-            .HasForeignKey<UserProgress>(up => up.ChallengeId);
+        modelBuilder.Entity<UserProgress>(entity =>
+        {
+            entity.HasKey(up => up.Id);
+            entity.Property(up => up.Id)
+                .ValueGeneratedOnAdd();
+                
+            entity.HasOne(up => up.User)
+                .WithMany(u => u.Progresses)
+                .HasForeignKey(up => up.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+                
+            entity.HasOne(up => up.Challenge)
+                .WithMany()
+                .HasForeignKey(up => up.ChallengeId)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
             
         modelBuilder.Entity<UserStreak>()
             .HasOne(us => us.User)
             .WithOne(u => u.Streak)
             .HasForeignKey<UserStreak>(us => us.UserId);
-            
+
         // -- Seed data
         Seed(modelBuilder);
     }
@@ -50,9 +54,9 @@ public class ApplicationContext(DbContextOptions<ApplicationContext> options) : 
     {
         // -- Languages
         modelBuilder.Entity<Language>().HasData(
-            new Language { Id = 1, Name = "Spanish", Code = "es", FlagImageUrl = "images/flags/spain.png", Difficulty = "Beginner", TotalChallenges = 3 },
-            new Language { Id = 2, Name = "French", Code = "fr", FlagImageUrl = "images/flags/france.png", Difficulty = "Beginner", TotalChallenges = 3 },
-            new Language { Id = 3, Name = "German", Code = "de", FlagImageUrl = "images/flags/germany.png", Difficulty = "Beginner", TotalChallenges = 3 }
+            new Language { Id = 1, Name = "Spanish", Code = "es", FlagImageUrl = "images/flags/spain.png" },
+            new Language { Id = 2, Name = "French", Code = "fr", FlagImageUrl = "images/flags/france.png" },
+            new Language { Id = 3, Name = "German", Code = "de", FlagImageUrl = "images/flags/germany.png" }
         );
     }
 }
