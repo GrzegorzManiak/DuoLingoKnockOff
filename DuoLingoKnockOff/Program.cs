@@ -3,6 +3,7 @@ using DuoLingoKnockOff.Data.Context;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 
 // -- Load server settings from config
 var builder = WebApplication.CreateBuilder(args);
@@ -41,6 +42,47 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
     };
 });
 
+// -- CORS -- //
+// Cors is not necessarly needed for this since itll be a mobile app, but
+// for testing it is needed.
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin", policy =>
+    {
+        var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>();
+        policy.WithOrigins(allowedOrigins ?? ["http://localhost:3000"])
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
+// -- SWAGGER -- //
+// https://dev.to/eduardstefanescu/aspnet-core-swagger-documentation-with-bearer-authentication-40l6
+builder.Services.AddSwaggerGen(c => 
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "DuoLingo Knock Off API", Version = "v1" });
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Description = "JWT Auth header using the Bearer scheme",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer"
+    });
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {{
+        new OpenApiSecurityScheme
+        {
+            Reference = new OpenApiReference
+            {
+                Type = ReferenceType.SecurityScheme,
+                Id = "Bearer"
+            }
+        }, []
+    }});
+});
+
+
 builder.WebHost.UseUrls($"{scheme}://{host}:{port}");
 builder.Services.AddOpenApi();
 builder.Services.AddControllers();
@@ -58,6 +100,22 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
     app.UseSwagger();
     app.UseSwaggerUI();
+}
+
+// -- Finally, run migration and seed data
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var context = services.GetRequiredService<ApplicationContext>();
+        context.Database.Migrate();
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred during migration");
+    }
 }
 
 app.Run();
