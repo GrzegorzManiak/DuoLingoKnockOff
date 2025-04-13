@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DuoLingoKnockOff")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7faab6ba185f2baa824fe462e5e94f991ff36ee1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8a0f7dc0789f8a51e02b59f077ec1fcac66b09fa")]
 [assembly: System.Reflection.AssemblyProductAttribute("DuoLingoKnockOff")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DuoLingoKnockOff")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
