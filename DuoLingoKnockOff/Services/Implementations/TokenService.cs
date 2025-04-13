@@ -25,7 +25,7 @@ public class TokenService(IConfiguration config, IOptions<AppConfig> appConfig) 
         var claims = new List<Claim>
         {
             new(JwtRegisteredClaimNames.NameId, user.Id.ToString()),
-            new(JwtRegisteredClaimNames.UniqueName, user.Username)
+            new(JwtRegisteredClaimNames.UniqueName, user.UsernameCased)
         };
         
         var tokenDescriptor = new SecurityTokenDescriptor
