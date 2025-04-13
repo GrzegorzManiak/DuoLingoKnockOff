@@ -5,6 +5,5 @@ namespace DuoLingoKnockOff.Data.Repos.Interfaces;
 
 public interface ILanguageRepository : IRepository<Language>
 {
-    Task<IEnumerable<Challenge>> GetChallengesForLanguageAsync(int languageId);
-    Task<LeaderboardDto> GetLeaderboardForLanguageAsync(int languageId);
+    Task<LeaderboardDto> GetLeaderboardForLanguageAsync(int languageId, int? currentUserId = null);
 }

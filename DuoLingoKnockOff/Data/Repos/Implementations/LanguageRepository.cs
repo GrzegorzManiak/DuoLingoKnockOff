@@ -11,20 +11,11 @@ public class LanguageRepository(ApplicationContext context, IOptions<AppConfig> 
 {
     private readonly ApplicationContext _context = context;
     private readonly AppConfig _appConfig = appConfig.Value;
-
-    public async Task<IEnumerable<Challenge>> GetChallengesForLanguageAsync(int languageId)
+    
+    public async Task<LeaderboardDto> GetLeaderboardForLanguageAsync(int languageId, int? currentUserId = null)
     {
-        return await _context.Challenges
-            .Where(c => c.LanguageId == languageId)
-            .ToListAsync();
-    }
-
-    public async Task<LeaderboardDto> GetLeaderboardForLanguageAsync(int languageId)
-    {
-        // -- Get completed challenges for the given language, group the by the user, 
-        //    select all users and sum their scores and count their completed challenges
-        //    sort by their total score and take the top x users
-        var topUsers = await _context.UserProgress
+        // -- Get all users' progress for the language
+        var allUsersProgress = await _context.UserProgress
             .Where(up => up.Challenge.LanguageId == languageId)
             .GroupBy(up => up.UserId)
             .Select(g => new LeaderboardEntryDto
@@ -36,13 +27,28 @@ public class LanguageRepository(ApplicationContext context, IOptions<AppConfig> 
                 CompletedChallenges = g.Count(up => up.Completed)
             })
             .OrderByDescending(e => e.TotalScore)
-            .Take(_appConfig.TotalLeaderboardEntries)
             .ToListAsync();
 
-        return new LeaderboardDto
+        // -- Get top users based on config
+        var topUsers = allUsersProgress.Take(_appConfig.TotalLeaderboardEntries).ToList();
+
+        var leaderboard = new LeaderboardDto
         {
             LanguageId = languageId,
             Entries = topUsers
         };
+
+        // -- If current user is provided, find their position and entry
+        if (currentUserId.HasValue)
+        {
+            var currentUserEntry = allUsersProgress.FirstOrDefault(e => e.UserId == currentUserId);
+            if (currentUserEntry != null)
+            {
+                leaderboard.CurrentUserEntry = currentUserEntry;
+                leaderboard.CurrentUserPosition = allUsersProgress.IndexOf(currentUserEntry) + 1;
+            }
+        }
+
+        return leaderboard;
     }
 }
