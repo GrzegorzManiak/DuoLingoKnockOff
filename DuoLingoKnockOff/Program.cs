@@ -29,6 +29,7 @@ builder.Services.AddDbContext<ApplicationContext>(options =>
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ILanguageRepository, LanguageRepository>();
 builder.Services.AddScoped<IChallengeRepository, ChallengeRepository>();
+builder.Services.AddScoped<IUserStreakRepository, UserStreakRepository>();
 
 // -- APP CONFIG -- //
 builder.Services.Configure<AppConfig>(builder.Configuration.GetSection("AppConfig"));
