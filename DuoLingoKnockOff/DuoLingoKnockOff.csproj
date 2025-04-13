@@ -17,7 +17,6 @@
 
     <ItemGroup>
       <Folder Include="Controllers\" />
-      <Folder Include="Data\Entities\" />
       <Folder Include="Data\Repos\" />
       <Folder Include="DTO\" />
       <Folder Include="Services\" />
