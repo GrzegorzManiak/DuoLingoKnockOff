@@ -1,5 +1,3 @@
-using System.Security.Cryptography;
-using System.Text;
 using DuoLingoKnockOff.Data.Entities;
 using DuoLingoKnockOff.Data.Repos.Interfaces;
 using DuoLingoKnockOff.DTO;
