@@ -3,46 +3,31 @@ using DuoLingoKnockOff.Data.Entities;
 using DuoLingoKnockOff.Data.Repos.Interfaces;
 using DuoLingoKnockOff.DTO;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace DuoLingoKnockOff.Data.Repos.Implementations;
 
-public class UserRepository(ApplicationContext context) : Repository<User>(context), IUserRepository
+public class UserRepository(ApplicationContext context, IUserStreakRepository userStreakRepository) : Repository<User>(context), IUserRepository
 {
-    private readonly ApplicationContext _context = context;
-
     public async Task<User?> GetUserByUsernameAsync(string username)
     {
-        return await _context.Users
+        return await context.Users
             .SingleOrDefaultAsync(x => x != null && x.UsernameUncased == username.ToLower());
     }
     
     public async Task<User?> GetUserByIdAsync(int userId)
     {
-        return await _context.Users
+        return await context.Users
             .SingleOrDefaultAsync(x => x != null && x.Id == userId);
-    }
-
-    public async Task<bool> UpdateUserStreakAsync(int userId)
-    {
-        var user = await GetUserByIdAsync(userId);
-        if (user == null) return false;
-        
-        // TEMP: not really hwo i want to do this, but for now its grand
-        user.Streak.CurrentStreak++;
-        if (user.Streak.CurrentStreak > user.Streak.MaxStreak)
-            user.Streak.MaxStreak = user.Streak.CurrentStreak;
-        
-        user.Streak.LastActivity = DateTime.UtcNow;
-        return await _context.SaveChangesAsync() > 0;
     }
     
     public async Task<UserProgressDto> GetUserProgressAsync(int userId)
     {
         // -- Get completed challenges for the given user, group by the language,
         //    select all languages and sum their scores and count their completed challenges
-        var progressEntries = await _context.UserProgresses
+        var progressEntries = await context.UserProgress
             .Where(up => up.UserId == userId)
-            .Join(_context.Challenges,
+            .Join(context.Challenges,
                 progress => progress.ChallengeId,
                 challenge => challenge.Id,
                 (progress, challenge) => new { Progress = progress, Challenge = challenge })
@@ -54,11 +39,14 @@ public class UserRepository(ApplicationContext context) : Repository<User>(conte
                 TotalScore = g.Sum(j => j.Progress.Score)
             })
             .ToListAsync();
-
+    
+        var streak = await userStreakRepository.GetUserStreakAsync(userId);
+        
         return new UserProgressDto
         {
             UserId = userId,
-            LanguageProgress = progressEntries
+            LanguageProgress = progressEntries,
+            Streak = streak,
         };
     }
 }

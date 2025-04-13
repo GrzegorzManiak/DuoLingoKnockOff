@@ -9,6 +9,20 @@ public enum Difficulty
     Hard
 }
 
+public class DifficultyHelper
+{
+    public static int GetDifficulityMultiplier(Difficulty difficulty)
+    {
+        return difficulty switch
+        {
+            Difficulty.Easy => 1,
+            Difficulty.Medium => 2,
+            Difficulty.Hard => 3,
+            _ => 1
+        };
+    } 
+}
+
 public abstract class ChallengeService
 {
     public abstract Dictionary<string, object> GenerateChallenge(Difficulty difficulty);

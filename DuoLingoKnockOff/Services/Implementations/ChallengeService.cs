@@ -14,7 +14,7 @@ public class ChallengeService(IChallengeRepository challengeRepository, IOptions
     private readonly MultipleChoiceHelper _multipleChoiceHelper = new();
     private readonly AppConfig _appConfig = appConfig.Value;
 
-    public async Task<Challenge> GenerateUserChallenge(int userId, int languageId, Difficulty difficulty)
+    public async Task<ChallengeDto> GenerateUserChallenge(int userId, int languageId, Difficulty difficulty)
     {
         var challengeContent = _multipleChoiceHelper.GenerateChallenge(difficulty);
         var serializedContent = _multipleChoiceHelper.SerializeChallenge(challengeContent);
@@ -38,7 +38,7 @@ public class ChallengeService(IChallengeRepository challengeRepository, IOptions
         };
 
         await challengeRepository.CreateUserProgressAsync(userProgress);
-        return challenge;
+        return ChallengeDto.FromEntity(challenge);
     }
 
     public async Task UpdateUserProgress(int userId, int challengeId, bool isCorrect)
@@ -46,32 +46,35 @@ public class ChallengeService(IChallengeRepository challengeRepository, IOptions
         var progress = await challengeRepository.GetUserProgressAsync(userId, challengeId);
         if (progress == null) throw new InvalidOperationException("Challenge progress not found");
         
-        progress.Attempts++;
-        progress.LastAttemptDate = DateTime.UtcNow;
-
         if (isCorrect)
         {
             progress.Completed = true;
-            progress.Score = 100;
+            // -- Calculate score based on attempts * difficulty
+            progress.Score = Math.Max(0,
+                (100 - progress.Attempts * _appConfig.ChallengeScorePenalty) *
+                DifficultyHelper.GetDifficulityMultiplier(progress.Challenge.Difficulty));
             progress.CompletedDate = DateTime.UtcNow;
         }
         
-        // -- If not correct, update score based on attempts
-        else progress.Score = Math.Max(0, 100 - progress.Attempts * _appConfig.ChallengeScorePenalty);
+        progress.Attempts++;
+        progress.LastAttemptDate = DateTime.UtcNow;
+        
         await challengeRepository.UpdateUserProgressAsync(progress);
     }
     
-    public async Task<PaginatedResult<Challenge>> GetCompletedChallenges(int userId, int languageId, int page, int pageSize)
+    public async Task<PaginatedResult<ChallengeDto>> GetCompletedChallenges(int userId, int languageId, int page, int pageSize)
     {
         var challenges = await challengeRepository.GetCompletedChallenges(userId, languageId, page, pageSize);
         var totalCount = await challengeRepository.GetCompletedChallengesCount(userId, languageId);
-        return new PaginatedResult<Challenge>(challenges, totalCount, page, pageSize);
+        var dtos = challenges.Select(ChallengeDto.FromEntity);
+        return new PaginatedResult<ChallengeDto>(dtos, totalCount, page, pageSize);
     }
 
-    public async Task<PaginatedResult<Challenge>> GetAttemptingChallenges(int userId, int languageId, int page, int pageSize)
+    public async Task<PaginatedResult<ChallengeDto>> GetAttemptingChallenges(int userId, int languageId, int page, int pageSize)
     {
         var challenges = await challengeRepository.GetAttemptingChallenges(userId, languageId, page, pageSize);
         var totalCount = await challengeRepository.GetAttemptingChallengesCount(userId, languageId);
-        return new PaginatedResult<Challenge>(challenges, totalCount, page, pageSize);
+        var dtos = challenges.Select(ChallengeDto.FromEntity);
+        return new PaginatedResult<ChallengeDto>(dtos, totalCount, page, pageSize);
     }
 } 
