@@ -7,6 +7,7 @@ var host = builder.Configuration["Host"] ?? "localhost";
 var port = builder.Configuration.GetValue<int>("Port", 5165);
 var scheme = builder.Configuration["Scheme"] ?? "http";
 
+// -- DATABASE -- //
 builder.Services.AddDbContext<ApplicationContext>(options =>
 {
     // -- NOTE: I am using MariaDB because i've alreay have it setup on AWS and im using it
@@ -15,6 +16,9 @@ builder.Services.AddDbContext<ApplicationContext>(options =>
     var serverVersion = new MySqlServerVersion(new Version(10, 11, 0));
     options.UseMySql(connectionString, serverVersion);
 });
+
+// -- APP CONFIG -- //
+builder.Services.Configure<AppConfig>(builder.Configuration.GetSection("AppConfig"));
 
 builder.WebHost.UseUrls($"{scheme}://{host}:{port}");
 builder.Services.AddOpenApi();
