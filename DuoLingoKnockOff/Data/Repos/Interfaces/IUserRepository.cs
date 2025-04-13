@@ -9,10 +9,4 @@ public interface IUserRepository : IRepository<User>
     Task<User?> GetUserByIdAsync(int id);
     
     Task<UserProgressDto> GetUserProgressAsync(int userId);
-    Task<UserStreakDto> GetUserStreakAsync(int userId);
-    
-    // -- The idea is to have leaderboards like Duolingo, a streak being
-    //    a number of days in a row the user has logged in and completed
-    //    a lesson / challenge.
-    Task<bool> UpdateUserStreakAsync(int userId);
 }
