@@ -25,7 +25,7 @@ public class ApplicationContext(DbContextOptions<ApplicationContext> options) : 
             .HasForeignKey(c => c.LanguageId);
             
         modelBuilder.Entity<UserProgress>()
-            .HasKey(up => new { up.UserId, up.ChallengeId });
+            .HasKey(up => up.Id);
             
         modelBuilder.Entity<UserProgress>()
             .HasOne(up => up.User)
@@ -34,14 +34,14 @@ public class ApplicationContext(DbContextOptions<ApplicationContext> options) : 
             
         modelBuilder.Entity<UserProgress>()
             .HasOne(up => up.Challenge)
-            .WithMany(c => c.UserProgresses)
-            .HasForeignKey(up => up.ChallengeId);
+            .WithOne(c => c.UserProgress)
+            .HasForeignKey<UserProgress>(up => up.ChallengeId);
             
         modelBuilder.Entity<UserStreak>()
             .HasOne(us => us.User)
             .WithOne(u => u.Streak)
             .HasForeignKey<UserStreak>(us => us.UserId);
-        
+            
         // -- Seed data
         Seed(modelBuilder);
     }
@@ -53,10 +53,6 @@ public class ApplicationContext(DbContextOptions<ApplicationContext> options) : 
             new Language { Id = 1, Name = "Spanish", Code = "es", FlagImageUrl = "images/flags/spain.png", Difficulty = "Beginner", TotalChallenges = 3 },
             new Language { Id = 2, Name = "French", Code = "fr", FlagImageUrl = "images/flags/france.png", Difficulty = "Beginner", TotalChallenges = 3 },
             new Language { Id = 3, Name = "German", Code = "de", FlagImageUrl = "images/flags/germany.png", Difficulty = "Beginner", TotalChallenges = 3 }
-        );
-
-        // -- Spanish Challenges
-        modelBuilder.Entity<Challenge>().HasData(
         );
     }
 }
