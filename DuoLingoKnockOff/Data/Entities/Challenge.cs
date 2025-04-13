@@ -10,6 +10,8 @@ public class Challenge
 {
     public int Id { get; set; }
     public int LanguageId { get; set; }
+    public int UserId { get; set; }
+    public int UserProgressId { get; set; }
 
     // -- Stored as JSON since i want multiple types of
     //    challanges, otherwise there'd have to be a table
@@ -20,5 +22,6 @@ public class Challenge
     public int SequenceOrder { get; set; }
     
     public Language Language { get; set; }
-    public ICollection<UserProgress> UserProgresses { get; set; }
+    public User User { get; set; }
+    public UserProgress UserProgress { get; set; }
 }
