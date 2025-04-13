@@ -1,5 +1,7 @@
 using System.Text;
 using DuoLingoKnockOff.Data.Context;
+using DuoLingoKnockOff.Services.Implementations;
+using DuoLingoKnockOff.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -82,6 +84,8 @@ builder.Services.AddSwaggerGen(c =>
     }});
 });
 
+// -- OUR SERVICES -- //
+builder.Services.AddScoped<ITokenService, TokenService>();
 
 builder.WebHost.UseUrls($"{scheme}://{host}:{port}");
 builder.Services.AddOpenApi();
