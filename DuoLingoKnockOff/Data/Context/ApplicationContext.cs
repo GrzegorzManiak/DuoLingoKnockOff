@@ -6,7 +6,7 @@ namespace DuoLingoKnockOff.Data.Context;
 public class ApplicationContext(DbContextOptions<ApplicationContext> options) : DbContext(options)
 {
     // -- Tables
-    public DbSet<User> Users { get; set; }
+    public DbSet<User?> Users { get; set; }
     public DbSet<Language> Languages { get; set; }
     public DbSet<Challenge> Challenges { get; set; }
     public DbSet<UserStreak> UserStreaks { get; set; }
