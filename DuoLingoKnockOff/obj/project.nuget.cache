@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "EQfAOU9l96w=",
+  "dgSpecHash": "QmXE/0EOEDM=",
   "success": true,
   "projectFilePath": "/home/greg/bk/RiderProjects/DuoLingoKnockOff/DuoLingoKnockOff/DuoLingoKnockOff.csproj",
   "expectedPackageFiles": [
+    "/home/greg/.nuget/packages/bcrypt.net-next/4.0.3/bcrypt.net-next.4.0.3.nupkg.sha512",
     "/home/greg/.nuget/packages/microsoft.aspnetcore.authentication.jwtbearer/9.0.4/microsoft.aspnetcore.authentication.jwtbearer.9.0.4.nupkg.sha512",
     "/home/greg/.nuget/packages/microsoft.aspnetcore.openapi/9.0.3/microsoft.aspnetcore.openapi.9.0.3.nupkg.sha512",
     "/home/greg/.nuget/packages/microsoft.entityframeworkcore/8.0.13/microsoft.entityframeworkcore.8.0.13.nupkg.sha512",

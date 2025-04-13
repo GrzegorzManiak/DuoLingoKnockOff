@@ -12,10 +12,8 @@ public class User
     public string UsernameCased { get; set; }
     public string UsernameUncased { get; set; }
     public string Email { get; set; }
-
-    public byte[] PasswordHash { get; set; }
-    public byte[] PasswordSalt { get; set; }
-
+    public string PasswordHash { get; set; }
+    
     public string PreferredLanguage { get; set; }
 
     public DateTime DateJoined { get; set; }
