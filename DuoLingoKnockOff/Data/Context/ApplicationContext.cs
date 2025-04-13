@@ -40,5 +40,19 @@ public class ApplicationContext(DbContextOptions<ApplicationContext> options) : 
             .HasOne(us => us.User)
             .WithOne(u => u.Streak)
             .HasForeignKey<UserStreak>(us => us.UserId);
+        
+        // -- Seed data
+        Seed(modelBuilder);
+    }
+
+    private void Seed(ModelBuilder modelBuilder)
+    {
+        // -- TODO: Add something a lil more interesting
+        modelBuilder.Entity<Language>().HasData(
+            new Language { Id = 1, Name = "Spanish", Code = "es", FlagImageUrl = "spain.png", Difficulty = "Beginner" },
+            new Language { Id = 2, Name = "French", Code = "fr", FlagImageUrl = "france.png", Difficulty = "Beginner" },
+            new Language { Id = 3, Name = "German", Code = "de", FlagImageUrl = "germany.png", Difficulty = "Beginner" },
+            new Language { Id = 4, Name = "Italian", Code = "it", FlagImageUrl = "italy.png", Difficulty = "Beginner" }
+        );
     }
 }
