@@ -1,7 +1,8 @@
 {
   "challenges": {
     "questions": {
-      "whatDoesXMean": "What does {{word}} mean?"
+      "whatDoesXMean": "What does {{word}} mean?",
+      "whatIsThePluralOfX": "What is the plural of {{word}}?"
     },
     "answers": {
       "hello": "Hello",
@@ -9,7 +10,32 @@
       "thankYou": "Thank you",
       "please": "Please",
       "yes": "Yes",
-      "no": "No"
+      "no": "No",
+      "maybe": "Maybe",
+      "sure": "Sure",
+      "definitely": "Definitely",
+      "computation": "Computation",
+      "algorithm": "Algorithm",
+      "data": "Data",
+      "information": "Information",
+      "cats": "Cats",
+      "dogs": "Dogs",
+      "mice":"Mice",
+      "birds": "Birds",
+      "fish":"Fish",
+      "cows": "Cows",
+      "sheep":"sheep",
+      "goats": "Goats",
+      "horses":"Horses",
+      "elephants": "Elephants",
+      "cat": "Cat",
+      "dog": "Dog",
+      "mouse":"Mouse",
+      "bird": "Bird",
+      "cow": "Cow",
+      "goat": "Goat",
+      "horse":"Horse",
+      "elephant": "Elephant"
     }
   }
 }
