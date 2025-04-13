@@ -19,7 +19,6 @@
       <Folder Include="Controllers\" />
       <Folder Include="Data\Repos\" />
       <Folder Include="DTO\" />
-      <Folder Include="Services\" />
     </ItemGroup>
 
 </Project>
