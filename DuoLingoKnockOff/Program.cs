@@ -1,5 +1,7 @@
 using System.Text;
 using DuoLingoKnockOff.Data.Context;
+using DuoLingoKnockOff.Data.Repos.Implementations;
+using DuoLingoKnockOff.Data.Repos.Interfaces;
 using DuoLingoKnockOff.Services.Implementations;
 using DuoLingoKnockOff.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -22,6 +24,10 @@ builder.Services.AddDbContext<ApplicationContext>(options =>
     var serverVersion = new MySqlServerVersion(new Version(10, 11, 0));
     options.UseMySql(connectionString, serverVersion);
 });
+
+// -- REPOSITORIES -- //
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ILanguageRepository, LanguageRepository>();
 
 // -- APP CONFIG -- //
 builder.Services.Configure<AppConfig>(builder.Configuration.GetSection("AppConfig"));
@@ -49,12 +55,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 // for testing it is needed.
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowSpecificOrigin", policy =>
+    options.AddDefaultPolicy(policy =>
     {
-        var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>();
-        policy.WithOrigins(allowedOrigins ?? ["http://localhost:3000"])
-            .AllowAnyHeader()
-            .AllowAnyMethod();
+        policy.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
     });
 });
 
@@ -62,7 +67,7 @@ builder.Services.AddCors(options =>
 // https://dev.to/eduardstefanescu/aspnet-core-swagger-documentation-with-bearer-authentication-40l6
 builder.Services.AddSwaggerGen(c => 
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "DuoLingo Knock Off API", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "DuoLingoKnockOff API", Version = "v1" });
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Description = "JWT Auth header using the Bearer scheme",
@@ -93,7 +98,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
 var app = builder.Build();
-app.UseCors("AllowSpecificOrigin");
+app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
