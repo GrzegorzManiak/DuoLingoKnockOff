@@ -28,6 +28,7 @@ builder.Services.AddDbContext<ApplicationContext>(options =>
 // -- REPOSITORIES -- //
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ILanguageRepository, LanguageRepository>();
+builder.Services.AddScoped<IChallengeRepository, ChallengeRepository>();
 
 // -- APP CONFIG -- //
 builder.Services.Configure<AppConfig>(builder.Configuration.GetSection("AppConfig"));
@@ -93,6 +94,7 @@ builder.Services.AddSwaggerGen(c =>
 
 // -- OUR SERVICES -- //
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IChallengeService, ChallengeService>();
 
 builder.WebHost.UseUrls($"{scheme}://{host}:{port}");
 builder.Services.AddOpenApi();
