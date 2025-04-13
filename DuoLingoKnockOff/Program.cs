@@ -34,19 +34,21 @@ builder.Services.Configure<AppConfig>(builder.Configuration.GetSection("AppConfi
 
 // -- JWT AUTHENTICATION -- //
 // https://dotnetfullstackdev.medium.com/jwt-token-authentication-in-c-a-beginners-guide-with-code-snippets-7545f4c7c597
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options =>
 {
     options.TokenValidationParameters = new TokenValidationParameters
     {
         IssuerSigningKey = new SymmetricSecurityKey(
             Encoding.UTF8.GetBytes(builder.Configuration["TokenKey"] ?? 
             throw new InvalidOperationException("TokenKey not found"))),
-        ValidateIssuer = true,
-        ValidateAudience = true,
+        ValidateIssuer = false,
+        ValidateAudience = false,
         ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,
-        ValidIssuer = builder.Configuration["Issuer"] ?? "localhost",
-        ValidAudience = builder.Configuration["Audience"] ?? "localhost",
+        ValidateIssuerSigningKey = true
     };
 });
 
@@ -73,7 +75,7 @@ builder.Services.AddSwaggerGen(c =>
         Description = "JWT Auth header using the Bearer scheme",
         Name = "Authorization",
         In = ParameterLocation.Header,
-        Type = SecuritySchemeType.ApiKey,
+        Type = SecuritySchemeType.Http,
         Scheme = "Bearer"
     });
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
