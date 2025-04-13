@@ -9,7 +9,8 @@ public class User
 {
     public int Id { get; set; }
 
-    public string Username { get; set; }
+    public string UsernameCased { get; set; }
+    public string UsernameUncased { get; set; }
     public string Email { get; set; }
 
     public byte[] PasswordHash { get; set; }

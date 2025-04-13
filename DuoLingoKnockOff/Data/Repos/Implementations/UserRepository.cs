@@ -13,7 +13,7 @@ public class UserRepository(ApplicationContext context) : Repository<User>(conte
     public async Task<User?> GetUserByUsernameAsync(string username)
     {
         return await _context.Users
-            .SingleOrDefaultAsync(x => x != null && x.Username == username);
+            .SingleOrDefaultAsync(x => x != null && x.UsernameUncased == username.ToLower());
     }
     
     public async Task<User?> GetUserByIdAsync(int userId)

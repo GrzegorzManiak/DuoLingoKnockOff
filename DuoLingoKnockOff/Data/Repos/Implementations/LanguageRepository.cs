@@ -30,7 +30,7 @@ public class LanguageRepository(ApplicationContext context, IOptions<AppConfig> 
             .Select(g => new LeaderboardEntryDto
             {
                 UserId = g.Key,
-                Username = g.First().User.Username,
+                Username = g.First().User.UsernameUncased,
                 TotalScore = g.Sum(up => up.Score),
                 CompletedChallenges = g.Count(up => up.Completed)
             })
