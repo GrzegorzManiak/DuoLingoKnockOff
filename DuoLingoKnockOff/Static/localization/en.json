@@ -1,0 +1,15 @@
+{
+  "challenges": {
+    "questions": {
+      "whatDoesXMean": "What does {{word}} mean?"
+    },
+    "answers": {
+      "hello": "Hello",
+      "goodbye": "Goodbye",
+      "thankYou": "Thank you",
+      "please": "Please",
+      "yes": "Yes",
+      "no": "No"
+    }
+  }
+}

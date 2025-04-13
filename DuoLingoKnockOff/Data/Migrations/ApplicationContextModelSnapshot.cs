@@ -52,6 +52,35 @@ namespace DuoLingoKnockOff.Data.Migrations
                     b.HasIndex("LanguageId");
 
                     b.ToTable("Challenges");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Content = "{\"Question\":\"What does 'hola' mean?\",\"Options\":[\"Hello\",\"Goodbye\",\"Thank you\",\"Please\"],\"CorrectAnswer\":0}",
+                            Difficulty = "Beginner",
+                            LanguageId = 1,
+                            SequenceOrder = 1,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Content = "{\"Question\":\"What does 'gracias' mean?\",\"Options\":[\"Hello\",\"Goodbye\",\"Thank you\",\"Please\"],\"CorrectAnswer\":2}",
+                            Difficulty = "Beginner",
+                            LanguageId = 1,
+                            SequenceOrder = 2,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Content = "{\"Question\":\"What does 'adiós' mean?\",\"Options\":[\"Hello\",\"Goodbye\",\"Thank you\",\"Please\"],\"CorrectAnswer\":1}",
+                            Difficulty = "Beginner",
+                            LanguageId = 1,
+                            SequenceOrder = 3,
+                            Type = 0
+                        });
                 });
 
             modelBuilder.Entity("DuoLingoKnockOff.Data.Entities.Language", b =>
@@ -93,7 +122,7 @@ namespace DuoLingoKnockOff.Data.Migrations
                             Difficulty = "Beginner",
                             FlagImageUrl = "spain.png",
                             Name = "Spanish",
-                            TotalChallenges = 0
+                            TotalChallenges = 3
                         },
                         new
                         {
@@ -102,7 +131,7 @@ namespace DuoLingoKnockOff.Data.Migrations
                             Difficulty = "Beginner",
                             FlagImageUrl = "france.png",
                             Name = "French",
-                            TotalChallenges = 0
+                            TotalChallenges = 3
                         },
                         new
                         {
@@ -111,7 +140,7 @@ namespace DuoLingoKnockOff.Data.Migrations
                             Difficulty = "Beginner",
                             FlagImageUrl = "germany.png",
                             Name = "German",
-                            TotalChallenges = 0
+                            TotalChallenges = 3
                         },
                         new
                         {
@@ -120,7 +149,7 @@ namespace DuoLingoKnockOff.Data.Migrations
                             Difficulty = "Beginner",
                             FlagImageUrl = "italy.png",
                             Name = "Italian",
-                            TotalChallenges = 0
+                            TotalChallenges = 3
                         });
                 });
 

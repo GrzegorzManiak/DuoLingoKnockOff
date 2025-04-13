@@ -1,5 +1,6 @@
 using DuoLingoKnockOff.Data.Entities;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace DuoLingoKnockOff.Data.Context;
 
@@ -47,12 +48,15 @@ public class ApplicationContext(DbContextOptions<ApplicationContext> options) : 
 
     private void Seed(ModelBuilder modelBuilder)
     {
-        // -- TODO: Add something a lil more interesting
+        // -- Languages
         modelBuilder.Entity<Language>().HasData(
-            new Language { Id = 1, Name = "Spanish", Code = "es", FlagImageUrl = "spain.png", Difficulty = "Beginner" },
-            new Language { Id = 2, Name = "French", Code = "fr", FlagImageUrl = "france.png", Difficulty = "Beginner" },
-            new Language { Id = 3, Name = "German", Code = "de", FlagImageUrl = "germany.png", Difficulty = "Beginner" },
-            new Language { Id = 4, Name = "Italian", Code = "it", FlagImageUrl = "italy.png", Difficulty = "Beginner" }
+            new Language { Id = 1, Name = "Spanish", Code = "es", FlagImageUrl = "images/flags/spain.png", Difficulty = "Beginner", TotalChallenges = 3 },
+            new Language { Id = 2, Name = "French", Code = "fr", FlagImageUrl = "images/flags/france.png", Difficulty = "Beginner", TotalChallenges = 3 },
+            new Language { Id = 3, Name = "German", Code = "de", FlagImageUrl = "images/flags/germany.png", Difficulty = "Beginner", TotalChallenges = 3 }
+        );
+
+        // -- Spanish Challenges
+        modelBuilder.Entity<Challenge>().HasData(
         );
     }
 }

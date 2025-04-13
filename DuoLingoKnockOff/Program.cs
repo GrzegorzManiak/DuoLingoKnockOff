@@ -110,6 +110,17 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+// -- STATIC FILES -- //
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new Microsoft.Extensions.FileProviders.PhysicalFileProvider(
+        Path.Combine(builder.Environment.ContentRootPath, "Static")),
+    RequestPath = "/static"
+});
+
+app.Logger.LogInformation("Static files are being served from: {Path}", 
+    Path.Combine(builder.Environment.ContentRootPath, "Static"));
+
 // -- Finally, run migration and seed data
 using (var scope = app.Services.CreateScope())
 {

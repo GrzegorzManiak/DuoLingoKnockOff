@@ -2,6 +2,8 @@
 // ReSharper disable EntityFramework.ModelValidation.UnlimitedStringLength
 // ReSharper disable CollectionNeverUpdated.Global
 #pragma warning disable CS8618
+using DuoLingoKnockOff.Helpers.Challenges;
+
 namespace DuoLingoKnockOff.Data.Entities;
 
 public class Challenge
@@ -14,7 +16,7 @@ public class Challenge
     //    for each type of challenge.
     public string Content { get; set; } 
     public ChallengeType Type { get; set; }
-    public string Difficulty { get; set; }
+    public Difficulty Difficulty { get; set; }
     public int SequenceOrder { get; set; }
     
     public Language Language { get; set; }
