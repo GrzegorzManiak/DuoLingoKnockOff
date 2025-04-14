@@ -5,6 +5,7 @@ import { useSession } from '@/hooks/useSession';
 import { apiClient } from '@/utils/api';
 import { components } from '@/types';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useLocalization } from '@/hooks/useLocalization';
 
 type RegisterDto = components['schemas']['RegisterDto'];
 
@@ -21,29 +22,30 @@ function RegisterScreen() {
 	});
 	const router = useRouter();
 	const { signIn } = useSession();
+	const { t } = useLocalization();
 
-	async function handleRegister() {
-		if (!username || !email || !password) {
-			let [outlinedUsername, outlinedEmail, outlinedPassword, error] = [false, false, false, 'Sorry, but'];
+	async function handleRegister() {			
+		const validations = {
+			Username: username.length < 3,
+			Password: password.length < 6,
+			Email: !email.includes('@'),
+		};
+
+		if (Object.values(validations).some(invalid => invalid)) {
+			let error = 'application.auth.register.registerError';
+			const errorKeys = Object.entries(validations)
+				.filter(([_, invalid]) => invalid)
+				.map(([field]) => field);
+
+			if (errorKeys.length > 0)
+				error = `application.auth.${errorKeys.join('And')}Error`;
+				
+			setOutlined({
+				username: validations.Username, 
+				email: validations.Email, 
+				password: validations.Password
+			});
 			
-			if (username.length < 3) {
-				outlinedUsername = true;
-				error += ' your username must be at least 3 characters long';
-			}
-
-			if (!email.includes('@')) {
-				outlinedEmail = true;
-				if (outlinedUsername) error += ',';
-				error += ' your email must be valid';
-			}
-
-			if (password.length < 6) {
-				outlinedPassword = true;
-				if (outlinedUsername || outlinedEmail) error += ' and';
-				error += ' your password must be at least 6 characters long';
-			}
-		
-			setOutlined({username: outlinedUsername, email: outlinedEmail, password: outlinedPassword});
 			setError(error);
 			return;
 		}
@@ -57,9 +59,8 @@ function RegisterScreen() {
 			const { data, error: apiError } = await apiClient.POST('/api/Auth/register', { body: registerData });
 
 			if (data) {
-				console.log('Registration successful:', data);
 				if (data.token) return await signIn(data, data.token);
-				setError('Registration successful, but no token received.');
+				setError('application.auth.register.registerError');
 				console.log('Registration succeeded but no token received:', data);
 			} 
 			
@@ -70,7 +71,7 @@ function RegisterScreen() {
 			} 
 			
 			else {
-				setError('An unexpected error occurred during registration.');
+				setError('application.auth.register.registerError');
 				console.log('Unexpected registration response state');
 			}
 		} 
@@ -90,11 +91,11 @@ function RegisterScreen() {
 			<View style={styles.container}>
 				<Text style={styles.title}>Create Account</Text>
 
-				{error && <Text style={styles.errorText}>{error}</Text>}
+				{error && <Text style={styles.errorText}>{t(error)}</Text>}
 
 				<TextInput
 					style={[styles.input, outlined.username && styles.outlinedInput]}
-					placeholder="Username"
+					placeholder={t('application.auth.username')}
 					value={username}
 					onChangeText={setUsername}
 					autoCapitalize="none"
@@ -103,21 +104,21 @@ function RegisterScreen() {
 				
 				<TextInput
 					style={[styles.input, outlined.email && styles.outlinedInput]}
-					placeholder="Email"
+					placeholder={t('application.auth.email')}
 					value={email}
 					onChangeText={setEmail}
 					keyboardType="email-address"
 					autoCapitalize="none"
-					placeholderTextColor={outlined.username ? '#ff7a70' : '#b0b0b0'}
+					placeholderTextColor={outlined.email ? '#ff7a70' : '#b0b0b0'}
 				/>
 				
 				<TextInput
 					style={[styles.input, outlined.password && styles.outlinedInput]}
-					placeholder="Password"
+					placeholder={t('application.auth.password')}
 					value={password}
 					onChangeText={setPassword}
 					secureTextEntry
-					placeholderTextColor={outlined.username ? '#ff7a70' : '#b0b0b0'}
+					placeholderTextColor={outlined.password ? '#ff7a70' : '#b0b0b0'}
 				/>
 
 				<TouchableOpacity
@@ -128,12 +129,16 @@ function RegisterScreen() {
 					{loading ? (
 						<ActivityIndicator color="#ffffff" />
 					) : (
-						<Text style={styles.buttonText}>Register</Text>
+						<Text style={styles.buttonText}>
+							{t('application.auth.register.submit')}
+						</Text>
 					)}
 				</TouchableOpacity>
 
 				<TouchableOpacity onPress={() => router.push('/login')} style={styles.linkButton}>
-					<Text style={styles.linkText}>Already have an account? Log In</Text>
+					<Text style={styles.linkText}>
+						{t('application.auth.register.login')}
+					</Text>
 				</TouchableOpacity>
 			</View>
 		</SafeAreaView>

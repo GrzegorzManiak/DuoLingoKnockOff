@@ -5,6 +5,7 @@ import { useSession } from '@/hooks/useSession';
 import { apiClient } from '@/utils/api';
 import { components } from '@/types';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useLocalization } from '@/hooks/useLocalization';
 
 type LoginDto = components['schemas']['LoginDto'];
 
@@ -16,19 +17,20 @@ function LoginScreen() {
 	const [outlined, setOutlined] = useState<{username: boolean, password: boolean}>({username: false, password: false});
 	const router = useRouter();
 	const { signIn } = useSession();
+	const { t } = useLocalization();
 
 	async function handleLogin() {
 		if (!username || !password) {
 			let [outlinedUsername, outlinedPassword, error] = [false, false, 'Sorry, but'];
 			if (username.length < 3) {
 				outlinedUsername = true;
-				error += ' your username must be at least 3 characters long';
+				error = 'application.auth.UsernameError';
 			}
 
 			if (password.length < 6) {
 				outlinedPassword = true;
-				if (outlinedUsername) error += ' and';
-				error += ' your password must be at least 6 characters long';
+				if (outlinedUsername) error = 'application.auth.UsernameAndPasswordError';
+				else error = 'application.auth.PasswordError';
 			}
 		
 			setOutlined({username: outlinedUsername, password: outlinedPassword});
@@ -45,20 +47,19 @@ function LoginScreen() {
 			const { data, error: apiError, response } = await apiClient.POST('/api/Auth/login', { body: loginData });
 
 			if (data) {
-				console.log('Login successful:', data);
 				if (data.token) return await signIn(data, data.token);
-				setError('Login successful, but no token received.');
+				setError('application.auth.login.loginError');
 				console.log('Login succeeded but no token received:', data);
 			} 
 			
 			else if (apiError) {
 				console.log('Login failed with API error:', apiError);
 				setOutlined({username: true, password: true});
-				setError(`Sorry, but the credentials you provided are invalid. Please try again.`);
+				setError('application.auth.login.invalidCredentials');
 			} 
 			
 			else {
-				setError('An unexpected error occurred during login.');
+				setError('application.auth.login.loginError');
 				console.log('Unexpected login response state');
 			}
 		} 
@@ -76,13 +77,13 @@ function LoginScreen() {
   return (
 	<SafeAreaView style={styles.safeArea}>
 		<View style={styles.container}>
-			<Text style={styles.title}>Welcome Back!</Text>
+			<Text style={styles.title}>{t('application.auth.login.title')}</Text>
 
-			{error && <Text style={styles.errorText}>{error}</Text>}
+			{error && <Text style={styles.errorText}>{t(error)}</Text>}
 
 			<TextInput
 				style={[styles.input, outlined.username && styles.outlinedInput]}
-				placeholder="Username"
+				placeholder={t('application.auth.username')}
 				value={username}
 				onChangeText={setUsername}
 				autoCapitalize="none"
@@ -92,7 +93,7 @@ function LoginScreen() {
 			
 			<TextInput
 				style={[styles.input, outlined.password && styles.outlinedInput]}
-				placeholder="Password"
+				placeholder={t('application.auth.password')}
 				value={password}
 				onChangeText={setPassword}
 				secureTextEntry
@@ -107,12 +108,14 @@ function LoginScreen() {
 				{loading ? (
 					<ActivityIndicator color="#ffffff" />
 				) : (
-					<Text style={styles.buttonText}>Log In</Text>
+					<Text style={styles.buttonText}>
+						{t('application.auth.login.submit')}
+					</Text>
 				)}
 			</TouchableOpacity>
 
 			<TouchableOpacity onPress={() => router.push('/register')} style={styles.linkButton}>
-			<Text style={styles.linkText}>Don't have an account? Sign Up</Text>
+				<Text style={styles.linkText}>{t('application.auth.login.register')}</Text>
 			</TouchableOpacity>
 		</View>
 	</SafeAreaView>

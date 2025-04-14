@@ -18,7 +18,7 @@ function TabLayout() {
       headerTitle: '',
       headerTransparent: true,
     }}>
-      <Stack.Screen name="landing" />
+      <Stack.Screen name="index" />
       <Stack.Screen name="login" />
       <Stack.Screen name="register" />
     </Stack>

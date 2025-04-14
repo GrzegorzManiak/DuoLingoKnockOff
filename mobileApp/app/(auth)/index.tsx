@@ -4,22 +4,24 @@ import { useRouter } from 'expo-router';
 import Constants from 'expo-constants';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import logo from '../../assets/images/logo.png';
+import { useLocalization } from '@/hooks/useLocalization';
 
 function AuthScreen() {
 	const router = useRouter();
+	const { t } = useLocalization();
 
 	return (
 		<SafeAreaView style={styles.safeArea}>
 			<View style={styles.container}>
 				<Image source={logo} style={styles.logo} resizeMode="contain" />
-				<Text style={styles.title}>Learn a language for free. Forever.</Text>
+				<Text style={styles.title}>{t('application.auth.title')}</Text>
 
 				<View style={styles.buttonContainer}>
 					<TouchableOpacity 
 						style={[styles.button, styles.registerButton]} 
 						onPress={() => router.push('/register')}>
 						<Text style={[styles.buttonText, styles.registerButtonText]}>
-							Get Started
+							{t('application.auth.newAccount')}
 						</Text>
 					</TouchableOpacity>
 
@@ -27,7 +29,7 @@ function AuthScreen() {
 						style={[styles.button, styles.loginButton]} 
 						onPress={() => router.push('/login')}>
 						<Text style={[styles.buttonText, styles.loginButtonText]}>
-							I Already Have an Account
+							{t('application.auth.existingAccount')}
 						</Text>
 					</TouchableOpacity>
 				</View>

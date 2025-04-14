@@ -37,5 +37,38 @@
       "horse":"Horse",
       "elephant": "Elephant"
     }
+  },
+  "application": {
+    "auth": {
+        "title": "Learn a language for free, forever.",
+        "newAccount": "Get started",
+        "existingAccount": "I already have an account",
+      
+        "username": "Username",
+        "password": "Password",
+        "email": "Email",
+      
+        "UsernameError": "Sorry, but your username needs to be at least 3 characters long.",
+        "PasswordError": "Sorry, but your password needs to be at least 6 characters long.",
+        "EmailError": "Sorry, but your email address is invalid.",
+        "UsernameAndPasswordError": "Sorry, but your username and password need to be at least 3 and 6 characters long respectively.",
+        "UsernameAndEmailError": "Sorry, but your username needs to be at least 3 characters long and your email address is invalid.",
+        "PasswordAndEmailError": "Sorry, but your password needs to be at least 6 characters long and your email address is invalid.",
+        "UsernameAndPasswordAndEmailError": "Sorry, but your username needs to be at least 3 characters long, your password needs to be at least 6 characters long, and your email address is invalid.",
+      
+        "login": {
+            "title": "Welcome Back!",
+            "submit": "Log in",
+            "register": "Don't have an account? Sign up",
+            "loginError": "Sorry, there was an error logging you in. Please try again.",
+            "invalidCredentials": "Sorry, but we couldn't log you in. Please check your username and password."
+        },
+        "register": {
+            "title": "Create an Account",
+            "submit": "Register",
+            "login": "Already have an account? Log in",
+            "registerError": "Sorry, there was an error registering you. Please try again."
+        }
+    }
   }
 }
