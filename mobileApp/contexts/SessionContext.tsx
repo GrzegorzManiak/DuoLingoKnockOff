@@ -4,7 +4,7 @@ import { components } from '@/types'; // Assuming types are generated here
 
 type User = components['schemas']['UserDto'];
 
-const SESSION_KEY = '@MyApp:session';
+const SESSION_KEY = '@DLKO:session';
 
 // -- Session State Logic -- //
 
@@ -73,8 +73,6 @@ const SessionProvider: React.FC<SessionProviderProps> = ({ children }) => {
 		isLoading: true,
 	});
 
-
-	// -- Wrapper function to initialize session state from storage
 	const initializeSession = useCallback(async () => {
 		setSessionState(prev => ({ ...prev, isLoading: true }));
 		const storedData = await _initializeSessionFromStorage();

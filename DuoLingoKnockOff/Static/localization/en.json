@@ -63,6 +63,7 @@
             "loginError": "Sorry, there was an error logging you in. Please try again.",
             "invalidCredentials": "Sorry, but we couldn't log you in. Please check your username and password."
         },
+      
         "register": {
             "title": "Create an Account",
             "submit": "Register",

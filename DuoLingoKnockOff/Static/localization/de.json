@@ -1,0 +1,75 @@
+{
+  "challenges": {
+    "questions": {
+      "whatDoesXMean": "Was bedeutet {{word}}?",
+      "whatIsThePluralOfX": "Was ist der Plural von {{word}}?"
+    },
+    "answers": {
+      "hello": "Hallo",
+      "goodbye": "Auf Wiedersehen",
+      "thankYou": "Danke",
+      "please": "Bitte",
+      "yes": "Ja",
+      "no": "Nein",
+      "maybe": "Vielleicht",
+      "sure": "Sicher",
+      "definitely": "Definitiv",
+      "computation": "Berechnung",
+      "algorithm": "Algorithmus",
+      "data": "Daten",
+      "information": "Information",
+      "cats": "Katzen",
+      "dogs": "Hunde",
+      "mice": "Mäuse",
+      "birds": "Vögel",
+      "fish": "Fische",
+      "cows": "Kühe",
+      "sheep": "Schafe",
+      "goats": "Ziegen",
+      "horses": "Pferde",
+      "elephants": "Elefanten",
+      "cat": "Katze",
+      "dog": "Hund",
+      "mouse": "Maus",
+      "bird": "Vogel",
+      "cow": "Kuh",
+      "goat": "Ziege",
+      "horse": "Pferd",
+      "elephant": "Elefant"
+    }
+  },
+  "application": {
+    "auth": {
+      "title": "Lerne kostenlos und für immer eine Sprache.",
+      "newAccount": "Loslegen",
+      "existingAccount": "Ich habe bereits ein Konto",
+
+      "username": "Benutzername",
+      "password": "Passwort",
+      "email": "E-Mail",
+
+      "UsernameError": "Der Benutzername muss mindestens 3 Zeichen lang sein.",
+      "PasswordError": "Das Passwort muss mindestens 6 Zeichen lang sein.",
+      "EmailError": "Die E-Mail-Adresse ist ungültig.",
+      "UsernameAndPasswordError": "Der Benutzername muss mindestens 3 Zeichen und das Passwort mindestens 6 Zeichen lang sein.",
+      "UsernameAndEmailError": "Der Benutzername muss mindestens 3 Zeichen lang sein und die E-Mail-Adresse ist ungültig.",
+      "PasswordAndEmailError": "Das Passwort muss mindestens 6 Zeichen lang sein und die E-Mail-Adresse ist ungültig.",
+      "UsernameAndPasswordAndEmailError": "Der Benutzername muss mindestens 3 Zeichen lang sein, das Passwort mindestens 6 Zeichen lang sein, und die E-Mail-Adresse ist ungültig.",
+
+      "login": {
+        "title": "Willkommen zurück!",
+        "submit": "Anmelden",
+        "register": "Noch kein Konto? Jetzt registrieren",
+        "loginError": "Beim Anmelden ist ein Fehler aufgetreten. Bitte versuche es erneut.",
+        "invalidCredentials": "Benutzername oder Passwort sind falsch. Bitte überprüfe deine Eingaben."
+      },
+
+      "register": {
+        "title": "Konto erstellen",
+        "submit": "Registrieren",
+        "login": "Du hast bereits ein Konto? Anmelden",
+        "registerError": "Beim Registrieren ist ein Fehler aufgetreten. Bitte versuche es erneut."
+      }
+    }
+  }
+}

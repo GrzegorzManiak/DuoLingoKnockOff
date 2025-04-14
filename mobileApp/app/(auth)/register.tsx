@@ -45,7 +45,7 @@ function RegisterScreen() {
 				email: validations.Email, 
 				password: validations.Password
 			});
-			
+
 			setError(error);
 			return;
 		}
@@ -89,7 +89,7 @@ function RegisterScreen() {
 	return (
 		<SafeAreaView style={styles.safeArea}>
 			<View style={styles.container}>
-				<Text style={styles.title}>Create Account</Text>
+				<Text style={styles.title}>{t('application.auth.register.title')}</Text>
 
 				{error && <Text style={styles.errorText}>{t(error)}</Text>}
 

@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
 import { apiClient } from '@/utils/api';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 type Translations = Record<string, any>;
 
 interface LocalizationContextType {
@@ -12,15 +12,40 @@ interface LocalizationContextType {
 
 const LocalizationContext = createContext<LocalizationContextType | undefined>(undefined);
 const FALLBACK_LANGUAGE = 'en';
+const LANGUAGE_KEY = '@DLKO:language';
+
+async function _loadLanguageFromStorage(): Promise<string | null> {
+	try {
+		const storedLanguage = await AsyncStorage.getItem(LANGUAGE_KEY);
+		return storedLanguage || FALLBACK_LANGUAGE;
+	} 
+	catch (error) {
+		console.error("Failed to load language from storage:", error);
+		return FALLBACK_LANGUAGE;
+	}
+}
+
+async function _saveLanguageToStorage(language: string): Promise<void> {
+	try {	
+		await AsyncStorage.setItem(LANGUAGE_KEY, language);
+	} 
+	catch (error) {
+		console.error("Failed to save language to storage:", error);
+	}
+}
 
 function LocalizationProvider({ children }: { children: React.ReactNode }) {
 	const [currentLanguage, setCurrentLanguage] = useState<string>(FALLBACK_LANGUAGE);
 	const [translations, setTranslations] = useState<Translations>({});
 	const [isLoading, setIsLoading] = useState(true);
 
-	useEffect(() => { loadLanguage(FALLBACK_LANGUAGE); }, []);
+	const initializeLanguage = useCallback(async() => { 
+		let language = await _loadLanguageFromStorage();
+		if (!language) language = FALLBACK_LANGUAGE;
+		loadLanguage(language);
+	 }, []);
 
-	async function loadLanguage(lang: string) {
+	const loadLanguage = useCallback(async(lang: string) => {
 		setIsLoading(true);
 		try {
 			// @ts-ignore // -- This is expecitng a URL thats in the OpenAPI spec, but it's not
@@ -32,6 +57,7 @@ function LocalizationProvider({ children }: { children: React.ReactNode }) {
 			console.debug('Fetched language data:', `/static/localization/${lang}.json`);
 			setTranslations(response.data);
 			setCurrentLanguage(lang);
+			await _saveLanguageToStorage(lang);
 		} 
 		
 		catch (error) {
@@ -42,9 +68,9 @@ function LocalizationProvider({ children }: { children: React.ReactNode }) {
 		finally {
 			setIsLoading(false);
 		}
-	}
+	}, [FALLBACK_LANGUAGE, _saveLanguageToStorage]);
 
-	function getTranslation(key: string): string {
+	const getTranslation = useCallback((key: string): string => {
 		const keys = key.split('.');
 		let value: any = translations;
 		for (const k of keys) {
@@ -53,9 +79,9 @@ function LocalizationProvider({ children }: { children: React.ReactNode }) {
 		}
 	
 		return value || key;
-	}
+	}, [translations]);
 
-	function i18n(key: string, replacements?: Record<string, string>): string {
+	const i18n = useCallback((key: string, replacements?: Record<string, string>): string => {
 		let translation = getTranslation(key);
 		if (!replacements) return translation;
 			
@@ -65,8 +91,14 @@ function LocalizationProvider({ children }: { children: React.ReactNode }) {
 		});
 	
 		return translation;
-	}
+	}, [getTranslation]);
 
+	// -- Initialize language on component mount
+	useEffect(() => { 
+		initializeLanguage(); 
+	}, [initializeLanguage]);
+
+	// -- Provide the localization context value to the component tree
 	return (
 		<LocalizationContext.Provider value={{
 			currentLanguage,
