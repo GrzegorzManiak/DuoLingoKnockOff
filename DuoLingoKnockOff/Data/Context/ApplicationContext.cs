@@ -54,9 +54,9 @@ public class ApplicationContext(DbContextOptions<ApplicationContext> options) : 
     {
         // -- Languages
         modelBuilder.Entity<Language>().HasData(
-            new Language { Id = 1, Name = "Spanish", Code = "es", FlagImageUrl = "images/flags/spain.png" },
-            new Language { Id = 2, Name = "French", Code = "fr", FlagImageUrl = "images/flags/france.png" },
-            new Language { Id = 3, Name = "German", Code = "de", FlagImageUrl = "images/flags/germany.png" }
+            new Language { Id = 1, Name = "Spanish", Code = "es", FlagImageUrl = "images/flags/spain.png", NativeName = "Español" },
+            new Language { Id = 2, Name = "French", Code = "fr", FlagImageUrl = "images/flags/france.png", NativeName = "Français" },
+            new Language { Id = 3, Name = "German", Code = "de", FlagImageUrl = "images/flags/germany.png", NativeName = "Deutsch" }
         );
     }
 }

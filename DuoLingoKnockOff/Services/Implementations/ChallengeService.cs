@@ -77,4 +77,15 @@ public class ChallengeService(IChallengeRepository challengeRepository, IOptions
         var dtos = challenges.Select(ChallengeDto.FromEntity);
         return new PaginatedResult<ChallengeDto>(dtos, totalCount, page, pageSize);
     }
+    
+    public async Task<ChallengeDto> GetChallenge(int userId, int languageId, int challengeId)
+    {
+        var challenge = await challengeRepository.GetChallengeAsync(challengeId);
+        if (challenge == null) throw new InvalidOperationException("Challenge not found");
+        
+        if (challenge.LanguageId != languageId)
+            throw new InvalidOperationException("Challenge does not belong to the specified language");
+        
+        return ChallengeDto.FromEntity(challenge);
+    }
 } 

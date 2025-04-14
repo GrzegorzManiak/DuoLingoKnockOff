@@ -62,6 +62,21 @@ public class ChallengeController(IChallengeService challengeService, IUserStreak
         }
     }
 
+    [HttpGet("{challengeId}")]
+    public async Task<ActionResult<ChallengeDto>> GetChallenge(int languageId, int challengeId)
+    {
+        try
+        {
+            var challenge = await challengeService.GetChallenge(User.GetUserId(), languageId, challengeId);
+            if (challenge == null) return NotFound("Challenge not found");
+            return Ok(challenge);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "An error occurred while retrieving the challenge");
+        }
+    }
+
     [HttpPut("{challengeId}")]
     public async Task<ActionResult> UpdateChallengeProgress(
         int challengeId,

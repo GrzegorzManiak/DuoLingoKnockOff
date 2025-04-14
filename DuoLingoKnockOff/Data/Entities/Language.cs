@@ -10,4 +10,5 @@ public class Language
     public string Name { get; set; }
     public string Code { get; set; }
     public string FlagImageUrl { get; set; }
+    public string NativeName { get; set; }
 }

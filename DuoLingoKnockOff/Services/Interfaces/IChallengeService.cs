@@ -10,4 +10,5 @@ public interface IChallengeService
     public Task UpdateUserProgress(int userId, int challengeId, bool isCorrect);
     public Task<PaginatedResult<ChallengeDto>> GetCompletedChallenges(int userId, int languageId, int page, int pageSize);
     public Task<PaginatedResult<ChallengeDto>> GetAttemptingChallenges(int userId, int languageId, int page, int pageSize);
+    public Task<ChallengeDto> GetChallenge(int userId, int languageId, int challengeId);
 }

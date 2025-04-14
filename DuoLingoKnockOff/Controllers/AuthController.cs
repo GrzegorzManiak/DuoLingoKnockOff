@@ -72,6 +72,7 @@ public class AuthController(IUserRepository userRepository, IUserStreakRepositor
             Id = user.Id,
             Username = user.UsernameUncased,
             UsernameCased = user.UsernameCased,
+            Email = user.Email,
             Token = tokenService.CreateToken(user),
             PreferredLanguage = user.PreferredLanguage
         };
