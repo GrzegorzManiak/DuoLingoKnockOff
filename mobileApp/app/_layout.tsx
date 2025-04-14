@@ -10,7 +10,6 @@ import { useColorScheme } from '@/hooks/useColorScheme';
 import { SessionProvider } from '@/contexts/SessionContext';
 import { useSession } from '@/hooks/useSession';
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 function AppContent() {
@@ -21,34 +20,15 @@ function AppContent() {
   });
   const router = useRouter();
 
-  // Expo Router uses Error Boundaries to catch errors in the navigation tree.
-  useEffect(() => {
-    if (error) throw error;
-  }, [error]);
+  // -- Error & splash screen handling 
+  useEffect(() => { if (error) throw error }, [error]);
+  useEffect(() => { if (loaded && !isLoading) SplashScreen.hideAsync() }, [loaded, isLoading]);
 
+  // -- Logged in / logged out pages
   useEffect(() => {
-    if (loaded && !isLoading) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded, isLoading]);
-
-  useEffect(() => {
-    // Wait until loading fonts/session is complete
-    if (isLoading || !loaded) {
-      return;
-    }
-
-    // If the user is not signed in, redirect them to the login screen.
-    if (!user) {
-       // Using replace to prevent going back to the loading state/protected routes.
-       router.replace('/login'); // Redirect to login screen
-    } else {
-      // If the user is signed in and perhaps on an auth screen like /login,
-      // redirect them to the main app area.
-      // You might need more sophisticated logic if you have specific deep links to handle.
-      // Check if current route is one of the auth routes if needed.
-       router.replace('/(tabs)'); // Redirect to main tabs
-    }
+    if (isLoading || !loaded) return;
+    if (!user) router.replace('/(auth)');
+    else router.replace('/(tabs)');
   }, [user, isLoading, loaded, router]);
 
   // Show loading indicator while fonts or session are loading
@@ -66,8 +46,8 @@ function AppContent() {
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
         {/* Define screens accessible when logged out */}
-        <Stack.Screen name="login" options={{ headerShown: false }} />
-        <Stack.Screen name="register" options={{ headerShown: false }} />
+        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+
         {/* Define screens accessible when logged in */}
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
@@ -77,10 +57,7 @@ function AppContent() {
   );
 }
 
+// -- Wrap our whole app in the session provider
 export default function RootLayout() {
-  return (
-    <SessionProvider>
-      <AppContent />
-    </SessionProvider>
-  );
+  return (<SessionProvider><AppContent/></SessionProvider>);
 }

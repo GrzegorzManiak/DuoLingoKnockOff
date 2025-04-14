@@ -4,87 +4,123 @@ import { components } from '@/types'; // Assuming types are generated here
 
 type User = components['schemas']['UserDto'];
 
+const SESSION_KEY = '@MyApp:session';
+
+// -- Session State Logic -- //
+
+interface StoredSessionData {
+	user: User;
+	token: string;
+}
+
+async function _initializeSessionFromStorage(): Promise<StoredSessionData | null> {
+	try {
+		const storedSession = await AsyncStorage.getItem(SESSION_KEY);
+		if (!storedSession) return null;
+		return JSON.parse(storedSession) as StoredSessionData;
+	} 
+	catch (error) {
+		console.error("Failed to load session from storage:", error);
+		await _clearSessionFromStorage(); 
+		return null;
+	}
+}
+
+async function _saveSessionToStorage(user: User, token: string): Promise<void> {
+	try {
+		const sessionData = JSON.stringify({ user, token });
+		await AsyncStorage.setItem(SESSION_KEY, sessionData);
+	} 
+	catch (error) {
+		console.error("Failed to save session to storage:", error);
+		throw error; 
+	}
+}
+
+async function _clearSessionFromStorage(): Promise<void> {
+	try {
+		await AsyncStorage.removeItem(SESSION_KEY);
+	} 
+	catch (error) {
+		console.error("Failed to remove session from storage:", error);
+	}
+}
+
+// --- React Context --- 
+
+interface SessionProviderProps {
+	children: ReactNode;
+}
+
 interface SessionState {
-  user: User | null;
-  token: string | null;
-  isLoading: boolean;
+	user: User | null;
+	token: string | null;
+	isLoading: boolean;
 }
 
 interface SessionContextValue extends SessionState {
-  signIn: (user: User, token: string) => Promise<void>;
-  signOut: () => Promise<void>;
-  initializeSession: () => Promise<void>;
+	signIn: (user: User, token: string) => Promise<void>;
+	signOut: () => Promise<void>;
+	initializeSession: () => Promise<void>; 
 }
 
-const SESSION_KEY = '@MyApp:session';
+const SessionContext = createContext<SessionContextValue | undefined>(undefined);
 
-export const SessionContext = createContext<SessionContextValue | undefined>(undefined);
+const SessionProvider: React.FC<SessionProviderProps> = ({ children }) => {
+	const [sessionState, setSessionState] = useState<SessionState>({
+		user: null,
+		token: null,
+		isLoading: true,
+	});
 
-interface SessionProviderProps {
-  children: ReactNode;
-}
 
-export const SessionProvider: React.FC<SessionProviderProps> = ({ children }) => {
-  const [sessionState, setSessionState] = useState<SessionState>({
-    user: null,
-    token: null,
-    isLoading: true, // Start in loading state until session is checked
-  });
+	// -- Wrapper function to initialize session state from storage
+	const initializeSession = useCallback(async () => {
+		setSessionState(prev => ({ ...prev, isLoading: true }));
+		const storedData = await _initializeSessionFromStorage();
+		if (storedData) setSessionState({ user: storedData.user, token: storedData.token, isLoading: false });
+		else setSessionState({ user: null, token: null, isLoading: false });
+	}, []);
 
-  const initializeSession = useCallback(async () => {
-    setSessionState(prev => ({ ...prev, isLoading: true }));
-    try {
-      const storedSession = await AsyncStorage.getItem(SESSION_KEY);
-      if (storedSession) {
-        const { user, token } = JSON.parse(storedSession);
-        // Add validation here if necessary (e.g., check token expiry)
-        setSessionState({ user, token, isLoading: false });
-      } else {
-        setSessionState({ user: null, token: null, isLoading: false });
-      }
-    } catch (error) {
-      console.error("Failed to load session:", error);
-      // Handle error, maybe sign out
-      await signOut(); // Ensure clean state on error
-    }
-  }, []);
+	const signIn = useCallback(async (user: User, token: string) => {
+		try {
+			await _saveSessionToStorage(user, token);
+			setSessionState({ user, token, isLoading: false });
+		} 
+		catch (error) {
+			console.error("Session sign-in failed (storage error):", error);
+			setSessionState({ user: null, token: null, isLoading: false });
+		}
+	}, []);
 
-  useEffect(() => {
-    initializeSession();
-  }, [initializeSession]);
+	const signOut = useCallback(async () => {
+		await _clearSessionFromStorage();
+		setSessionState({ user: null, token: null, isLoading: false });
+	}, []);
 
-  const signIn = useCallback(async (user: User, token: string) => {
-    try {
-      const sessionData = JSON.stringify({ user, token });
-      await AsyncStorage.setItem(SESSION_KEY, sessionData);
-      setSessionState({ user, token, isLoading: false });
-    } catch (error) {
-      console.error("Failed to save session:", error);
-      // Handle sign-in error
-    }
-  }, []);
 
-  const signOut = useCallback(async () => {
-    try {
-      await AsyncStorage.removeItem(SESSION_KEY);
-      setSessionState({ user: null, token: null, isLoading: false });
-    } catch (error) {
-      console.error("Failed to remove session:", error);
-      // Handle sign-out error, maybe force state clear
-      setSessionState({ user: null, token: null, isLoading: false });
-    }
-  }, []);
+	// -- Initialize session on component mount
+	useEffect(() => {
+		initializeSession();
+	}, [initializeSession]);
 
-  const contextValue = useMemo(() => ({
-    ...sessionState,
-    signIn,
-    signOut,
-    initializeSession,
-  }), [sessionState, signIn, signOut, initializeSession]);
+	// -- Exposes session state functions to the component tree
+	const contextValue = useMemo(() => ({
+		...sessionState,
+		signIn,
+		signOut,
+		initializeSession,
+	}), [sessionState, signIn, signOut, initializeSession]);
 
-  return (
-    <SessionContext.Provider value={contextValue}>
-      {children}
-    </SessionContext.Provider>
-  );
-}; 
+	// -- Provide the context value to the component tree
+	return (
+		<SessionContext.Provider value={contextValue}>
+			{children}
+		</SessionContext.Provider>
+	);
+};
+
+export {
+	SessionContext,
+	SessionProvider
+};

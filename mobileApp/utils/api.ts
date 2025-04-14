@@ -1,28 +1,26 @@
-import createClient from 'openapi-fetch';
-import type { paths } from '@/types'; // Import the generated paths
-import { Platform } from 'react-native'; // Import Platform
+import createClient from 'openapi-fetch'; 
+import type { paths } from '@/types';
+import { Platform } from 'react-native';
 
-// --- Base URL Configuration ---
-// Use environment variable if provided
+// --- Base API URL Configuration ---
 let resolvedApiBaseUrl = process.env.EXPO_PUBLIC_API_URL;
 
-// If no env var, set default based on platform
+// -- no config, set default based on platform DEVELOPMENT ONLY
 if (!resolvedApiBaseUrl) {
-  if (Platform.OS === 'android') {
-    // Use Android emulator loopback address
+  // -- Use Android emulator loopback address (Different network)
+  if (Platform.OS === 'android') 
     resolvedApiBaseUrl = 'http://10.0.2.2:5165';
-  } else {
-    // Use localhost for web/iOS simulator
-    resolvedApiBaseUrl = 'http://localhost:5165';
-  }
+  
+  // -- Use localhost for web/iOS simulator (Same network)
+  else resolvedApiBaseUrl = 'http://localhost:5165';
 }
 
-console.log(`API Base URL: ${resolvedApiBaseUrl}`); // Log the resolved URL for debugging
+console.log(`API Base URL: ${resolvedApiBaseUrl}`); 
 
-// Create the basic openapi-fetch client
-export const apiClient = createClient<paths>({
-  baseUrl: resolvedApiBaseUrl, // Use the resolved URL
-});
+const apiClient = createClient<paths>({ baseUrl: resolvedApiBaseUrl });
+const getApiBaseUrl = () => resolvedApiBaseUrl; 
 
-// Function to get the base URL, useful for things like WebView
-export const getApiBaseUrl = () => resolvedApiBaseUrl; 
+export {
+  apiClient,
+  getApiBaseUrl
+};
