@@ -1,4 +1,4 @@
-import createClient from 'openapi-fetch'; 
+import createClient, { Middleware } from 'openapi-fetch'; 
 import type { paths } from '@/types';
 import { Platform } from 'react-native';
 
@@ -7,12 +7,12 @@ let resolvedApiBaseUrl = process.env.EXPO_PUBLIC_API_URL;
 
 // -- no config, set default based on platform DEVELOPMENT ONLY
 if (!resolvedApiBaseUrl) {
-  // -- Use Android emulator loopback address (Different network)
-  if (Platform.OS === 'android') 
-    resolvedApiBaseUrl = 'http://10.0.2.2:5165';
-  
-  // -- Use localhost for web/iOS simulator (Same network)
-  else resolvedApiBaseUrl = 'http://localhost:5165';
+	// -- Use Android emulator loopback address (Different network)
+	if (Platform.OS === 'android') 
+		resolvedApiBaseUrl = 'http://10.0.2.2:5165';
+	
+	// -- Use localhost for web/iOS simulator (Same network)
+	else resolvedApiBaseUrl = 'http://localhost:5165';
 }
 
 console.log(`API Base URL: ${resolvedApiBaseUrl}`); 
@@ -21,6 +21,6 @@ const apiClient = createClient<paths>({ baseUrl: resolvedApiBaseUrl });
 const getApiBaseUrl = () => resolvedApiBaseUrl; 
 
 export {
-  apiClient,
-  getApiBaseUrl
+	apiClient,
+	getApiBaseUrl,
 };

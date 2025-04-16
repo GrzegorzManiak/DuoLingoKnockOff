@@ -1,6 +1,7 @@
 import React, { createContext, useState, useEffect, ReactNode, useMemo, useCallback } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { components } from '@/types'; // Assuming types are generated here
+import { apiClient } from '@/utils/api';
 
 type User = components['schemas']['UserDto'];
 
@@ -62,6 +63,7 @@ interface SessionContextValue extends SessionState {
 	signIn: (user: User, token: string) => Promise<void>;
 	signOut: () => Promise<void>;
 	initializeSession: () => Promise<void>; 
+	getToken: () => string | null;
 }
 
 const SessionContext = createContext<SessionContextValue | undefined>(undefined);
@@ -96,6 +98,10 @@ const SessionProvider: React.FC<SessionProviderProps> = ({ children }) => {
 		setSessionState({ user: null, token: null, isLoading: false });
 	}, []);
 
+	const getToken = useCallback(() => {
+		return sessionState.token;
+	}, [sessionState.token]);
+
 
 	// -- Initialize session on component mount
 	useEffect(() => {
@@ -108,7 +114,8 @@ const SessionProvider: React.FC<SessionProviderProps> = ({ children }) => {
 		signIn,
 		signOut,
 		initializeSession,
-	}), [sessionState, signIn, signOut, initializeSession]);
+		getToken,
+	}), [sessionState, signIn, signOut, initializeSession, getToken]);
 
 	// -- Provide the context value to the component tree
 	return (

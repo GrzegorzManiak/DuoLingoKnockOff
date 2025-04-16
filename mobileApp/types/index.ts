@@ -402,6 +402,7 @@ export interface components {
             name?: string | null;
             code?: string | null;
             flagImageUrl?: string | null;
+            nativeName?: string | null;
         };
         LanguageProgressDto: {
             /** Format: int32 */
@@ -447,6 +448,7 @@ export interface components {
             username?: string | null;
             token?: string | null;
             preferredLanguage?: string | null;
+            email?: string | null;
         };
         UserProgressDto: {
             /** Format: int32 */
@@ -475,3 +477,4 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export type operations = Record<string, never>;
+export type Language = components['schemas']['Language'];

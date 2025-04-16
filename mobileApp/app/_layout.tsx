@@ -10,6 +10,7 @@ import { useColorScheme } from '@/hooks/useColorScheme';
 import { SessionProvider } from '@/contexts/SessionContext';
 import { LocalizationProvider } from '@/contexts/LocalizationContext';
 import { useSession } from '@/hooks/useSession';
+import { LearningLanguageProvider } from '@/contexts/LearningLanguageContext';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -51,12 +52,13 @@ function AppContent() {
 	);
 }
 
-// -- Wrap our whole app in the session provider and localization provider
 export default function RootLayout() {
 	return (
 		<SessionProvider>
 			<LocalizationProvider>
-				<AppContent/>
+				<LearningLanguageProvider>
+					<AppContent />
+				</LearningLanguageProvider>
 			</LocalizationProvider>
 		</SessionProvider>
 	);
