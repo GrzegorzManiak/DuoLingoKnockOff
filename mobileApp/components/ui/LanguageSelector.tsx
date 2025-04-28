@@ -10,7 +10,7 @@ const LANGUAGES = [
 	{ code: 'fr', name: 'Français', flag: '🇫🇷' },
 ];
 
-export function LanguageSelector() {
+function LanguageSelector() {
 	const [isOpen, setIsOpen] = useState(false);
 	const { currentLanguage, setLanguage } = useLocalization();
 
@@ -111,4 +111,6 @@ const styles = StyleSheet.create({
 		marginLeft: 12,
 		fontSize: 16,
 	},
-}); 
+});
+
+export default LanguageSelector;

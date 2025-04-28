@@ -8,7 +8,7 @@ import { components } from '@/types';
 import { useSession } from '@/hooks/useSession';
 type LeaderboardDto = components['schemas']['LeaderboardDto'];
 
-export default function LeaderboardScreen() {
+function LeaderboardScreen() {
 	const { currentLanguage } = useLearningLanguage();
 	const [leaderboardData, setLeaderboardData] = useState<LeaderboardDto | null>(null);
 	const [isLoading, setIsLoading] = useState(true);
@@ -283,4 +283,6 @@ const styles = StyleSheet.create({
 	flagIcon: {
 		marginRight: 8,
 	},
-}); 
+});
+
+export default LeaderboardScreen;

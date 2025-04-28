@@ -6,7 +6,6 @@ import React, { useEffect } from 'react';
 import 'react-native-reanimated';
 import { ActivityIndicator, View } from 'react-native';
 
-import { useColorScheme } from '@/hooks/useColorScheme';
 import { SessionProvider } from '@/contexts/SessionContext';
 import { LocalizationProvider } from '@/contexts/LocalizationContext';
 import { useSession } from '@/hooks/useSession';
@@ -16,7 +15,6 @@ SplashScreen.preventAutoHideAsync();
 
 function AppContent() {
 	const router = useRouter();
-	const colorScheme = useColorScheme();
 	const { user, isLoading } = useSession();
 	const [loaded, error] = useFonts({
 		SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
@@ -41,10 +39,11 @@ function AppContent() {
 	);
 
 	return (
-	<ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+	<ThemeProvider value={DefaultTheme}>
 		<Stack>
 			<Stack.Screen name="(auth)" options={{ headerShown: false }} />
 			<Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+			<Stack.Screen name="(challenges)" options={{ headerShown: false }} />
 			<Stack.Screen name="+not-found" />
 		</Stack>
 		<StatusBar style="auto" />

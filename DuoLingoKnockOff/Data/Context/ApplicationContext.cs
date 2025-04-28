@@ -24,22 +24,24 @@ public class ApplicationContext(DbContextOptions<ApplicationContext> options) : 
             .WithMany()
             .HasForeignKey(c => c.LanguageId);
             
-        modelBuilder.Entity<UserProgress>(entity =>
-        {
-            entity.HasKey(up => up.Id);
-            entity.Property(up => up.Id)
-                .ValueGeneratedOnAdd();
-                
-            entity.HasOne(up => up.User)
-                .WithMany(u => u.Progresses)
-                .HasForeignKey(up => up.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
-                
-            entity.HasOne(up => up.Challenge)
-                .WithMany()
-                .HasForeignKey(up => up.ChallengeId)
-                .OnDelete(DeleteBehavior.Cascade);
-        });
+        modelBuilder.Entity<UserProgress>()
+            .HasKey(up => up.Id);
+
+        modelBuilder.Entity<UserProgress>()
+            .Property(up => up.Id)
+            .ValueGeneratedOnAdd();
+
+        modelBuilder.Entity<UserProgress>()
+            .HasOne(up => up.User)
+            .WithMany(u => u.Progresses)
+            .HasForeignKey(up => up.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<UserProgress>()
+            .HasOne(up => up.Challenge)
+            .WithMany()
+            .HasForeignKey(up => up.ChallengeId)
+            .OnDelete(DeleteBehavior.Cascade);
             
         modelBuilder.Entity<UserStreak>()
             .HasOne(us => us.User)

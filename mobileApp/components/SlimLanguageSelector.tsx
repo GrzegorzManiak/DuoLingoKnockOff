@@ -7,7 +7,7 @@ import { components } from '@/types';
 
 type Language = components['schemas']['Language'];
 
-export const SlimLanguageSelector: React.FC = () => {
+const SlimLanguageSelector: React.FC = () => {
 	const { error } = useLanguageStore();
 	const { currentLanguage, setLanguage, loadLanguages, languages, isLoading } = useLearningLanguage();
 	const [isModalVisible, setIsModalVisible] = useState(false);
@@ -218,4 +218,8 @@ const styles = StyleSheet.create({
 		fontSize: 14,
 		color: '#666',
 	},
-}); 
+});
+
+export {
+	SlimLanguageSelector,
+};

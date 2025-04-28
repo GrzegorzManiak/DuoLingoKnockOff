@@ -56,6 +56,7 @@ function LearningLanguageProvider({ children }: { children: React.ReactNode }) {
 				parseAs: 'json',
 				headers: { 'Authorization': `Bearer ${getToken()}` }
 			});
+
 			console.log('loadLanguages', response);
 			if (!response.data) throw new Error('No language data received');
 			setLanguages(response.data as Language[]);
@@ -77,7 +78,7 @@ function LearningLanguageProvider({ children }: { children: React.ReactNode }) {
 	}, [languages]);
 
 	// -- Initialize language on component mount
-	useEffect(() => { 
+	useEffect(() => {
 		initializeLearningLanguage(); 
 	}, [initializeLearningLanguage]);
 

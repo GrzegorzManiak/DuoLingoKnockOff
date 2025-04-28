@@ -10,7 +10,7 @@ import { useLearningLanguage } from '@/contexts/LearningLanguageContext';
 type UserProgressDto = components['schemas']['UserProgressDto'];
 type Language = components['schemas']['Language'];
 
-export default function ProfileScreen() {
+function ProfileScreen() {
 	const { currentLanguage, setLanguage, languages, loadLanguages } = useLearningLanguage();
 	const { user, signOut } = useSession();
 	const [progress, setProgress] = useState<UserProgressDto | null>(null);
@@ -451,4 +451,6 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 		padding: 20,
 	},
-}); 
+});
+
+export default ProfileScreen;

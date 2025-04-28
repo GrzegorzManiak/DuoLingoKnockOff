@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, ScrollView, TouchableOpacity, ActivityIndicator, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { IconSymbol } from '@/components/ui/IconSymbol';
 import { SlimLanguageSelector } from '@/components/SlimLanguageSelector';
 import { ChallengeInfo } from '@/components/ChallengeInfo';
 import { useLearningLanguage } from '@/contexts/LearningLanguageContext';
@@ -12,7 +11,7 @@ import { useRouter } from 'expo-router';
 
 type ChallengeDto = components['schemas']['ChallengeDto'];
 
-export default function HomeScreen() {
+function HomeScreen() {
 	const { currentLanguage, isLoading: isLanguageLoading } = useLearningLanguage();
 	const { getToken } = useSession();
 	const router = useRouter();
@@ -68,7 +67,7 @@ export default function HomeScreen() {
 			});
 			
 			if (data) router.push({
-				pathname: '/challenge',
+				pathname: '/(challenges)' as any,
 				params: { 
 					challengeId: data.id,
 					languageId: currentLanguage.id
@@ -103,7 +102,7 @@ export default function HomeScreen() {
 								onPress={() => {
 									if (challenge?.id && currentLanguage?.id) {
 										router.push({
-											pathname: '/challenge',
+											pathname: '/(challenges)/index' as any,
 											params: { 
 												challengeId: challenge.id,
 												languageId: currentLanguage.id
@@ -334,3 +333,5 @@ const styles = StyleSheet.create({
 		paddingBottom: 0
 	},
 });
+
+export default HomeScreen;

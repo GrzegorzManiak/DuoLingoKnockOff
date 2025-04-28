@@ -6,15 +6,13 @@ import { HapticTab } from '@/components/HapticTab';
 import { IconSymbol } from '@/components/ui/IconSymbol';
 import TabBarBackground from '@/components/ui/TabBarBackground';
 import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
 
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+function TabLayout() {
 
   return (
 	<Tabs
 		screenOptions={{
-			tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+			tabBarActiveTintColor: Colors['light'].tint,
 			headerShown: false,
 			tabBarButton: HapticTab,
 			tabBarBackground: TabBarBackground,
@@ -30,7 +28,7 @@ export default function TabLayout() {
 			name="index"
 			options={{
 				title: 'Learn',
-				tabBarIcon: ({ color }) => <IconSymbol size={28} name="textbook.fill" color={color} />,
+				tabBarIcon: ({ color }) => <IconSymbol size={28} name="book.fill" color={color} />,
 			}}
 		/>
 
@@ -52,3 +50,5 @@ export default function TabLayout() {
 	</Tabs>
   );
 }
+
+export default TabLayout;
