@@ -8,6 +8,7 @@ import { apiClient } from '@/utils/api';
 import { components } from '@/types';
 import { useSession } from '@/hooks/useSession';
 import { useRouter } from 'expo-router';
+import {ChallengeInfoSimple} from "@/components/ChallengeInfoSimple";
 
 type ChallengeDto = components['schemas']['ChallengeDto'];
 
@@ -159,21 +160,16 @@ function HomeScreen() {
 					) : (!completedChallenges || completedChallenges.length === 0) ? (
 						<Text style={styles.emptyText}>You haven't completed any challenges yet</Text>
 					) : (
-						<ScrollView 
-							horizontal 
-							showsHorizontalScrollIndicator={false}
-							style={styles.completedScroll}
-						>
+						<View style={styles.completedList}>
 							{completedChallenges.map((challenge) => (
 								<View key={challenge?.id}>
-									<ChallengeInfo 
+									<ChallengeInfoSimple
 										challenge={challenge} 
 										style={styles.completedInfo}
-										imageStyle={styles.completedImage}
 									/>
 								</View>
 							))}
-						</ScrollView>
+						</View>
 					)}
 				</View>
 			</ScrollView>
@@ -237,25 +233,16 @@ const styles = StyleSheet.create({
 		fontSize: 14,
 		color: '#666',
 	},
-	completedScroll: {
-		flexDirection: 'row',
+	completedList: {
+		flexDirection: 'column',
+		gap: 8,
 	},
-	completedCard: {
-		backgroundColor: '#fff',
-		padding: 15,
-		borderRadius: 12,
-		marginBottom: 10,
-		elevation: 2,
-		shadowColor: '#000',
-		shadowOffset: { width: 0, height: 2 },
-		shadowOpacity: 0.1,
+	completedItem: {
+		width: '100%',
 	},
 	completedInfo: {
-		height: 100,
-		marginBottom: 6,
-	},
-	completedImage: {
-		height: '100%',
+		height: 50,
+		width: '100%',
 	},
 	completedTitle: {
 		fontSize: 16,

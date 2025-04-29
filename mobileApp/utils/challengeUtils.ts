@@ -1,4 +1,4 @@
-export const getChallengeTypeName = (type: number | undefined): string => {
+const getChallengeTypeName = (type: number | undefined): string => {
     switch (type) {
         case 0: return 'Multiple Choice';
         case 1: return 'Fill Blanks';
@@ -9,11 +9,16 @@ export const getChallengeTypeName = (type: number | undefined): string => {
     }
 };
 
-export const getDifficultyName = (difficulty: number | undefined): string => {
+const getDifficultyName = (difficulty: number | undefined): string => {
     switch (difficulty) {
         case 0: return 'Easy';
         case 1: return 'Medium';
         case 2: return 'Hard';
         default: return 'Unknown';
     }
-}; 
+};
+
+export {
+    getChallengeTypeName,
+    getDifficultyName,
+}

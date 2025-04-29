@@ -1,4 +1,11 @@
 {
+  "common": {
+    "correct": "Correct!",
+    "incorrect": "Incorrect!",
+    "challengeCompleted": "You completed the challenge! Click here to go back to the main menu.",
+    "goBack": "Go back",
+    "continue": "Continue"
+  },
   "challenges": {
     "questions": {
       "whatDoesXMean": "What does {{word}} mean?",

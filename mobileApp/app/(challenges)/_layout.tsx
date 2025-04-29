@@ -1,30 +1,49 @@
-import React from 'react';
-import { Stack } from 'expo-router';
+import React, { useEffect } from 'react';
+import { Stack, useRouter } from 'expo-router';
 import { useLocalSearchParams } from 'expo-router';
-import { apiClient } from '@/utils/api';
-import { useSession } from '@/hooks/useSession';
-import { components } from '@/types';
-
-type ChallengeDto = components['schemas']['ChallengeDto'];
+import { useChallengeData } from '@/hooks/useChallengeData';
 
 function ChallengesLayout() {
-	const { challengeId, languageId } = useLocalSearchParams();
-	const { getToken } = useSession();
+	const params = useLocalSearchParams();
+	const { challengeId, languageId } = params;
+	const router = useRouter();
 
-	const getChallengeType = async () => {
-		if (!challengeId || !languageId) return null;
-		try {
-			const { data } = await apiClient.GET('/api/languages/{languageId}/Challenge/{challengeId}', {
-				params: { path: {	languageId: Number(languageId), challengeId: Number(challengeId) } },
-				headers: { 'Authorization': `Bearer ${getToken()}` }
+	// @ts-ignore
+	const { challenge, isLoading, error } = useChallengeData(challengeId, languageId);
+
+	useEffect(() => {
+		console.log(`Challenge ID: ${challengeId}, Language ID: ${languageId}`);
+		if (challenge && !isLoading && !error) {
+			const type = challenge.type;
+
+			let route;
+			switch (type) {
+				case 0:
+					route = 'multiple-choice';
+					break;
+				case 1:
+					route = 'fill-blanks';
+					break;
+				case 2:
+					route = 'conversation';
+					break;
+				case 3:
+					route = 'word-matching';
+					break;
+				case 4:
+					route = 'audio-challenge';
+					break;
+				default:
+					route = 'index';
+			}
+
+			if (route !== 'index') router.replace({
+				// @ts-ignore
+				pathname: `/(challenges)/${route}` as const,
+				params: { challengeId, languageId }
 			});
-			return (data as ChallengeDto)?.type;
-		} 
-		catch (err) {
-			console.error('Error fetching challenge type:', err);
-			return null;
 		}
-	};
+	}, [challenge, isLoading, error, challengeId, languageId, router]);
 
 	return (
 		<Stack
@@ -39,53 +58,36 @@ function ChallengesLayout() {
 				options={{
 					title: 'Challenge',
 				}}
-				listeners={{
-					focus: async () => {
-						const type = await getChallengeType();
-						console.log('type', type);
-						// Route to the appropriate challenge type screen
-						switch (type) {
-							case 0:
-								return 'multiple-choice';
-							case 1:
-								return 'fill-blanks';
-							case 2:
-								return 'conversation';
-							case 3:
-								return 'word-matching';
-							case 4:
-								return 'audio-challenge';
-							default:
-								return 'index';
-						}
-						
-					},
-				}}
 			/>
+
 			<Stack.Screen
 				name="multiple-choice"
 				options={{
 					title: 'Multiple Choice',
 				}}
 			/>
+
 			<Stack.Screen
 				name="fill-blanks"
 				options={{
 					title: 'Fill in the Blanks',
 				}}
 			/>
+
 			<Stack.Screen
 				name="conversation"
 				options={{
 					title: 'Conversation',
 				}}
 			/>
+
 			<Stack.Screen
 				name="word-matching"
 				options={{
 					title: 'Word Matching',
 				}}
 			/>
+
 			<Stack.Screen
 				name="audio-challenge"
 				options={{

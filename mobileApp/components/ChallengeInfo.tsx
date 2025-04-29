@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import { components } from '@/types';
 import { getChallengeTypeName, getDifficultyName } from '@/utils/challengeUtils';
+import {getApiBaseUrl} from "@/utils/api";
 
 type ChallengeDto = components['schemas']['ChallengeDto'];
 
@@ -35,7 +36,7 @@ const ChallengeInfo: React.FC<ChallengeInfoProps> = ({
 		]}>
 			<View style={styles.imageContainer}>
 				<Image
-					source={{ uri: `https://picsum.photos/200/200?seed=${challenge?.type}` }}
+					source={{ uri: `${getApiBaseUrl()}/static/images/difficulty/${challenge?.difficulty}.png` }}
 					style={[styles.image, imageStyle]}
 				/>
 				<View style={styles.slantContainer}>

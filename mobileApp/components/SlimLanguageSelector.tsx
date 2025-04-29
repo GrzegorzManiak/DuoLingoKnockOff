@@ -4,6 +4,7 @@ import { useLanguageStore } from '@/stores/languageStore';
 import { useLearningLanguage } from '@/contexts/LearningLanguageContext';
 import { IconSymbol } from '@/components/ui/IconSymbol';
 import { components } from '@/types';
+import {getApiBaseUrl} from "@/utils/api";
 
 type Language = components['schemas']['Language'];
 
@@ -89,7 +90,7 @@ const SlimLanguageSelector: React.FC = () => {
 											<View style={styles.languageInfo}>
 												{language.flagImageUrl && (
 													<Image 
-														source={{ uri: `http://10.0.2.2:5165/static/${language.flagImageUrl}` }}
+														source={{ uri: `${getApiBaseUrl()}/static/${language.flagImageUrl}` }}
 														style={styles.flagImage}
 													/>
 												)}
