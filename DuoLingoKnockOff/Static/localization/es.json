@@ -1,0 +1,124 @@
+{
+  "learn": {
+    "easy": "Fácil",
+    "medium": "Medio",
+    "hard": "Difícil",
+    "easyDescription": "¡Perfecto para principiantes!",
+    "mediumDescription": "¡Ponte a prueba!",
+    "hardDescription": "¡Demuestra tus habilidades!",
+    "continueLearning": "Continuar aprendiendo",
+    "currentlyAttempting": "En curso",
+    "completedChallenges": "Desafíos completados",
+    "noCompletedChallenges": "Aún no has completado ningún desafío",
+    "notAttempting": "No estás intentando ningún desafío"
+  },
+  "leaderboard": {
+    "noEntries": "Aún no hay nadie en la clasificación",
+    "title": "Clasificación",
+    "entry": "{{xp}} XP • {{completedChallenges}} Desafíos",
+    "endOfList": "Fin de la clasificación"
+  },
+  "profile": {
+    "streak": "Racha de {{day}} días",
+    "totalXP": "XP Total",
+    "totalLessons": "Lecciones totales",
+    "overallProgress": "Progreso general",
+    "level": "Nivel {{level}}",
+    "xp": "{{xp}} XP",
+    "challangesCompleted": "{{completedChallenges}} Desafíos",
+    "notStarted": "Todavía no has empezado a aprender ningún idioma",
+    "languageProgress": "Progreso del idioma",
+    "logout": "Cerrar sesión"
+  },
+  "common": {
+    "type": {
+      "multiplechoice": "Opción múltiple"
+    },
+    "difficulty": {
+      "easy": "Dificultad Fácil",
+      "medium": "Dificultad Media",
+      "hard": "Dificultad Difícil"
+    },
+    "leaderboard": "Clasificación",
+    "profile": "Perfil",
+    "home": "Inicio",
+    "loading": "Cargando...",
+    "correct": "¡Correcto!",
+    "incorrect": "¡Incorrecto!",
+    "challengeCompleted": "¡Has completado el desafío! Haz clic aquí para volver al menú principal.",
+    "goBack": "Volver",
+    "continue": "Continuar"
+  },
+  "challenges": {
+    "challenge": "Desafío",
+    "multipleChoice": "Opción múltiple",
+    "fillInTheBlank": "Rellenar el espacio",
+    "questions": {
+      "whatDoesXMean": "¿Qué significa {{word}}?",
+      "whatIsThePluralOfX": "¿Cuál es el plural de {{word}}?"
+    },
+    "answers": {
+      "hello": "Hola",
+      "goodbye": "Adiós",
+      "thankYou": "Gracias",
+      "please": "Por favor",
+      "yes": "Sí",
+      "no": "No",
+      "maybe": "Quizás",
+      "sure": "Claro",
+      "definitely": "Definitivamente",
+      "computation": "Cálculo",
+      "algorithm": "Algoritmo",
+      "data": "Datos",
+      "information": "Información",
+      "cats": "Gatos",
+      "dogs": "Perros",
+      "mice": "Ratones",
+      "birds": "Pájaros",
+      "fish": "Peces",
+      "cows": "Vacas",
+      "sheep": "Ovejas",
+      "goats": "Cabras",
+      "horses": "Caballos",
+      "elephants": "Elefantes",
+      "cat": "Gato",
+      "dog": "Perro",
+      "mouse": "Ratón",
+      "bird": "Pájaro",
+      "cow": "Vaca",
+      "goat": "Cabra",
+      "horse": "Caballo",
+      "elephant": "Elefante"
+    }
+  },
+  "application": {
+    "auth": {
+      "title": "Aprende un idioma gratis, para siempre.",
+      "newAccount": "Empezar",
+      "existingAccount": "Ya tengo una cuenta",
+      "username": "Nombre de usuario",
+      "password": "Contraseña",
+      "email": "Correo electrónico",
+      "UsernameError": "Lo sentimos, pero tu nombre de usuario debe tener al menos 3 caracteres.",
+      "PasswordError": "Lo sentimos, pero tu contraseña debe tener al menos 6 caracteres.",
+      "EmailError": "Lo sentimos, pero tu dirección de correo electrónico no es válida.",
+      "UsernameAndPasswordError": "Lo sentimos, pero tu nombre de usuario y tu contraseña deben tener al menos 3 y 6 caracteres respectivamente.",
+      "UsernameAndEmailError": "Lo sentimos, pero tu nombre de usuario debe tener al menos 3 caracteres y tu dirección de correo electrónico no es válida.",
+      "PasswordAndEmailError": "Lo sentimos, pero tu contraseña debe tener al menos 6 caracteres y tu dirección de correo electrónico no es válida.",
+      "UsernameAndPasswordAndEmailError": "Lo sentimos, pero tu nombre de usuario debe tener al menos 3 caracteres, tu contraseña al menos 6 caracteres y tu dirección de correo electrónico no es válida.",
+      "login": {
+        "title": "¡Bienvenido/a de nuevo!",
+        "submit": "Iniciar sesión",
+        "register": "¿No tienes cuenta? Regístrate",
+        "loginError": "Lo sentimos, hubo un error al iniciar sesión. Por favor, inténtalo de nuevo.",
+        "invalidCredentials": "Lo sentimos, no pudimos iniciar tu sesión. Por favor, revisa tu nombre de usuario y contraseña."
+      },
+      "register": {
+        "title": "Crear una cuenta",
+        "submit": "Registrarse",
+        "login": "¿Ya tienes cuenta? Inicia sesión",
+        "registerError": "Lo sentimos, hubo un error al registrarte. Por favor, inténtalo de nuevo."
+      }
+    }
+  }
+}
