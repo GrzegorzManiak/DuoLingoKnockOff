@@ -1,11 +1,58 @@
 {
+  "learn": {
+    "easy": "Facile",
+    "medium": "Moyen",
+    "hard": "Difficile",
+    "easyDescription": "Parfait pour les débutants !",
+    "mediumDescription": "Mettez-vous au défi !",
+    "hardDescription": "Testez vos compétences !",
+    "continueLearning": "Continuer l'apprentissage",
+    "currentlyAttempting": "En cours",
+    "completedChallenges": "Défis terminés",
+    "noCompletedChallenges": "Vous n'avez terminé aucun défi pour le moment",
+    "notAttempting": "Vous n'essayez aucun défi actuellement"
+  },
+  "leaderboard": {
+    "noEntries": "Personne dans le classement pour le moment",
+    "title": "Classement",
+    "entry": "{{xp}} XP • {{completedChallenges}} Défis",
+    "endOfList": "Fin du classement"
+  },
+  "profile": {
+    "streak": "Série de {{day}} jours",
+    "totalXP": "XP total",
+    "totalLessons": "Leçons totales",
+    "overallProgress": "Progression globale",
+    "level": "Niveau {{level}}",
+    "xp": "{{xp}} XP",
+    "challangesCompleted": "{{completedChallenges}} Défis",
+    "notStarted": "Vous n'avez pas encore commencé à apprendre de langues",
+    "languageProgress": "Progression par langue",
+    "logout": "Déconnexion"
+  },
   "common": {
+    "type": {
+      "multiplechoice": "Choix multiple"
+    },
+    "difficulty": {
+      "easy": "Difficulté Facile",
+      "medium": "Difficulté Moyenne",
+      "hard": "Difficulté Difficile"
+    },
+    "leaderboard": "Classement",
+    "profile": "Profil",
+    "home": "Accueil",
+    "loading": "Chargement...",
     "correct": "Correct !",
     "incorrect": "Incorrect !",
-    "challengeCompleted": "Vous avez terminé le défi ! Retournez au menu principal.",
-    "goBack": "Retour"
+    "challengeCompleted": "Vous avez terminé le défi ! Cliquez ici pour revenir au menu principal.",
+    "goBack": "Retour",
+    "continue": "Continuer"
   },
   "challenges": {
+    "challenge": "Défi",
+    "multipleChoice": "Choix multiple",
+    "fillInTheBlank": "Texte à trous",
     "questions": {
       "whatDoesXMean": "Que signifie {{word}} ?",
       "whatIsThePluralOfX": "Quel est le pluriel de {{word}} ?"
@@ -19,7 +66,7 @@
       "no": "Non",
       "maybe": "Peut-être",
       "sure": "Bien sûr",
-      "definitely": "Absolument",
+      "definitely": "Certainement",
       "computation": "Calcul",
       "algorithm": "Algorithme",
       "data": "Données",
@@ -51,25 +98,25 @@
       "existingAccount": "J'ai déjà un compte",
       "username": "Nom d'utilisateur",
       "password": "Mot de passe",
-      "email": "Email",
+      "email": "E-mail",
       "UsernameError": "Désolé, mais votre nom d'utilisateur doit comporter au moins 3 caractères.",
       "PasswordError": "Désolé, mais votre mot de passe doit comporter au moins 6 caractères.",
-      "EmailError": "Désolé, mais votre adresse e-mail n'est pas valide.",
+      "EmailError": "Désolé, mais votre adresse e-mail est invalide.",
       "UsernameAndPasswordError": "Désolé, mais votre nom d'utilisateur et votre mot de passe doivent comporter respectivement au moins 3 et 6 caractères.",
-      "UsernameAndEmailError": "Désolé, mais votre nom d'utilisateur doit comporter au moins 3 caractères et votre adresse e-mail n'est pas valide.",
-      "PasswordAndEmailError": "Désolé, mais votre mot de passe doit comporter au moins 6 caractères et votre adresse e-mail n'est pas valide.",
-      "UsernameAndPasswordAndEmailError": "Désolé, mais votre nom d'utilisateur doit comporter au moins 3 caractères, votre mot de passe doit comporter au moins 6 caractères et votre adresse e-mail n'est pas valide.",
+      "UsernameAndEmailError": "Désolé, mais votre nom d'utilisateur doit comporter au moins 3 caractères et votre adresse e-mail est invalide.",
+      "PasswordAndEmailError": "Désolé, mais votre mot de passe doit comporter au moins 6 caractères et votre adresse e-mail est invalide.",
+      "UsernameAndPasswordAndEmailError": "Désolé, mais votre nom d'utilisateur doit comporter au moins 3 caractères, votre mot de passe au moins 6 caractères, et votre adresse e-mail est invalide.",
       "login": {
         "title": "Bon retour !",
-        "submit": "Se connecter",
-        "register": "Vous n'avez pas de compte ? S'inscrire",
+        "submit": "Connexion",
+        "register": "Pas de compte ? S'inscrire",
         "loginError": "Désolé, une erreur s'est produite lors de la connexion. Veuillez réessayer.",
         "invalidCredentials": "Désolé, nous n'avons pas pu vous connecter. Veuillez vérifier votre nom d'utilisateur et votre mot de passe."
       },
       "register": {
         "title": "Créer un compte",
         "submit": "S'inscrire",
-        "login": "Vous avez déjà un compte ? Se connecter",
+        "login": "Déjà un compte ? Se connecter",
         "registerError": "Désolé, une erreur s'est produite lors de l'inscription. Veuillez réessayer."
       }
     }

@@ -1,5 +1,58 @@
 {
+  "learn": {
+    "easy": "Leicht",
+    "medium": "Mittel",
+    "hard": "Schwer",
+    "easyDescription": "Perfekt für Anfänger!",
+    "mediumDescription": "Fordere dich selbst heraus!",
+    "hardDescription": "Teste deine Fähigkeiten!",
+    "continueLearning": "Weiterlernen",
+    "currentlyAttempting": "Wird gerade versucht",
+    "completedChallenges": "Abgeschlossene Herausforderungen",
+    "noCompletedChallenges": "Du hast noch keine Herausforderungen abgeschlossen",
+    "notAttempting": "Du versuchst gerade keine Herausforderungen"
+  },
+  "leaderboard": {
+    "noEntries": "Noch keine Einträge in der Bestenliste",
+    "title": "Bestenliste",
+    "entry": "{{xp}} EP • {{completedChallenges}} Herausforderungen",
+    "endOfList": "Ende der Bestenliste"
+  },
+  "profile": {
+    "streak": "{{day}}-Tage-Serie",
+    "totalXP": "Gesamt-EP",
+    "totalLessons": "Gesamtlektionen",
+    "overallProgress": "Gesamtfortschritt",
+    "level": "Level {{level}}",
+    "xp": "{{xp}} EP",
+    "challangesCompleted": "{{completedChallenges}} Herausforderungen",
+    "notStarted": "Du hast noch nicht angefangen, Sprachen zu lernen",
+    "languageProgress": "Sprachfortschritt",
+    "logout": "Abmelden"
+  },
+  "common": {
+    "type": {
+      "multiplechoice": "Mehrfachauswahl"
+    },
+    "difficulty": {
+      "easy": "Schwierigkeitsgrad Einfach",
+      "medium": "Schwierigkeitsgrad Mittel",
+      "hard": "Schwierigkeitsgrad Schwer"
+    },
+    "leaderboard": "Bestenliste",
+    "profile": "Profil",
+    "home": "Startseite",
+    "loading": "Lädt...",
+    "correct": "Richtig!",
+    "incorrect": "Falsch!",
+    "challengeCompleted": "Du hast die Herausforderung abgeschlossen! Klicke hier, um zum Hauptmenü zurückzukehren.",
+    "goBack": "Zurück",
+    "continue": "Weiter"
+  },
   "challenges": {
+    "challenge": "Herausforderung",
+    "multipleChoice": "Multiple-Choice",
+    "fillInTheBlank": "Lückentext",
     "questions": {
       "whatDoesXMean": "Was bedeutet {{word}}?",
       "whatIsThePluralOfX": "Was ist der Plural von {{word}}?"
@@ -17,7 +70,7 @@
       "computation": "Berechnung",
       "algorithm": "Algorithmus",
       "data": "Daten",
-      "information": "Information",
+      "information": "Informationen",
       "cats": "Katzen",
       "dogs": "Hunde",
       "mice": "Mäuse",
@@ -40,35 +93,31 @@
   },
   "application": {
     "auth": {
-      "title": "Lerne kostenlos und für immer eine Sprache.",
+      "title": "Lerne kostenlos eine Sprache, für immer.",
       "newAccount": "Loslegen",
       "existingAccount": "Ich habe bereits ein Konto",
-
       "username": "Benutzername",
       "password": "Passwort",
       "email": "E-Mail",
-
-      "UsernameError": "Der Benutzername muss mindestens 3 Zeichen lang sein.",
-      "PasswordError": "Das Passwort muss mindestens 6 Zeichen lang sein.",
-      "EmailError": "Die E-Mail-Adresse ist ungültig.",
-      "UsernameAndPasswordError": "Der Benutzername muss mindestens 3 Zeichen und das Passwort mindestens 6 Zeichen lang sein.",
-      "UsernameAndEmailError": "Der Benutzername muss mindestens 3 Zeichen lang sein und die E-Mail-Adresse ist ungültig.",
-      "PasswordAndEmailError": "Das Passwort muss mindestens 6 Zeichen lang sein und die E-Mail-Adresse ist ungültig.",
-      "UsernameAndPasswordAndEmailError": "Der Benutzername muss mindestens 3 Zeichen lang sein, das Passwort mindestens 6 Zeichen lang sein, und die E-Mail-Adresse ist ungültig.",
-
+      "UsernameError": "Entschuldigung, aber dein Benutzername muss mindestens 3 Zeichen lang sein.",
+      "PasswordError": "Entschuldigung, aber dein Passwort muss mindestens 6 Zeichen lang sein.",
+      "EmailError": "Entschuldigung, aber deine E-Mail-Adresse ist ungültig.",
+      "UsernameAndPasswordError": "Entschuldigung, aber dein Benutzername muss mindestens 3 Zeichen und dein Passwort mindestens 6 Zeichen lang sein.",
+      "UsernameAndEmailError": "Entschuldigung, aber dein Benutzername muss mindestens 3 Zeichen lang sein und deine E-Mail-Adresse ist ungültig.",
+      "PasswordAndEmailError": "Entschuldigung, aber dein Passwort muss mindestens 6 Zeichen lang sein und deine E-Mail-Adresse ist ungültig.",
+      "UsernameAndPasswordAndEmailError": "Entschuldigung, aber dein Benutzername muss mindestens 3 Zeichen lang sein, dein Passwort mindestens 6 Zeichen lang sein und deine E-Mail-Adresse ist ungültig.",
       "login": {
         "title": "Willkommen zurück!",
         "submit": "Anmelden",
-        "register": "Noch kein Konto? Jetzt registrieren",
-        "loginError": "Beim Anmelden ist ein Fehler aufgetreten. Bitte versuche es erneut.",
-        "invalidCredentials": "Benutzername oder Passwort sind falsch. Bitte überprüfe deine Eingaben."
+        "register": "Kein Konto? Registrieren",
+        "loginError": "Entschuldigung, beim Anmelden ist ein Fehler aufgetreten. Bitte versuche es erneut.",
+        "invalidCredentials": "Entschuldigung, wir konnten dich nicht anmelden. Bitte überprüfe deinen Benutzernamen und dein Passwort."
       },
-
       "register": {
         "title": "Konto erstellen",
         "submit": "Registrieren",
-        "login": "Du hast bereits ein Konto? Anmelden",
-        "registerError": "Beim Registrieren ist ein Fehler aufgetreten. Bitte versuche es erneut."
+        "login": "Bereits ein Konto? Anmelden",
+        "registerError": "Entschuldigung, bei der Registrierung ist ein Fehler aufgetreten. Bitte versuche es erneut."
       }
     }
   }

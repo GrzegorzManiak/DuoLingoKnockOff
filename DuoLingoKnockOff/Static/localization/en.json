@@ -1,5 +1,48 @@
 {
+  "learn": {
+    "easy": "Easy",
+    "medium": "Medium",
+    "hard": "Hard",
+    "easyDescription": "Perfect for beginners!",
+    "mediumDescription": "Challenge yourself!",
+    "hardDescription": "Test your skills!",
+    "continueLearning": "Continue Learning",
+    "currentlyAttempting": "Currently Attempting",
+    "completedChallenges": "Completed Challenges",
+    "noCompletedChallenges": "You have not completed any challenges yet",
+    "notAttempting": "You are not attempting any challenges"
+  },
+  "leaderboard": {
+    "noEntries": "No people on the leaderboard yet",
+    "title": "Leaderboard",
+    "entry": "{{xp}} XP • {{completedChallenges}} Challenges",
+    "endOfList": "End of Leaderboard"
+  },
+  "profile": {
+    "streak": "{{day}} day streak",
+    "totalXP": "Total XP",
+    "totalLessons": "Total Lessons",
+    "overallProgress": "Overall Progress",
+    "level": "Level {{level}}",
+    "xp": "{{xp}} XP",
+    "challangesCompleted": "{{completedChallenges}} Challenges",
+    "notStarted": "You haven't started learning any languages yet",
+    "languageProgress": "Language Progress",
+    "logout": "Log out"
+  },
   "common": {
+    "type": {
+      "multiplechoice": "Multiple Choice"
+    },
+    "difficulty": {
+      "easy": "Difficulty Easy",
+      "medium": "Difficulty Medium",
+      "hard": "Difficulty Hard"
+    },
+    "leaderboard": "Leaderboard",
+    "profile": "Profile",
+    "home": "Home",
+    "loading": "Loading...",
     "correct": "Correct!",
     "incorrect": "Incorrect!",
     "challengeCompleted": "You completed the challenge! Click here to go back to the main menu.",
@@ -7,6 +50,9 @@
     "continue": "Continue"
   },
   "challenges": {
+    "challenge": "Challenge",
+    "multipleChoice": "Multiple Choice",
+    "fillInTheBlank": "Fill in the blank",
     "questions": {
       "whatDoesXMean": "What does {{word}} mean?",
       "whatIsThePluralOfX": "What is the plural of {{word}}?"
@@ -27,56 +73,52 @@
       "information": "Information",
       "cats": "Cats",
       "dogs": "Dogs",
-      "mice":"Mice",
+      "mice": "Mice",
       "birds": "Birds",
-      "fish":"Fish",
+      "fish": "Fish",
       "cows": "Cows",
-      "sheep":"sheep",
+      "sheep": "sheep",
       "goats": "Goats",
-      "horses":"Horses",
+      "horses": "Horses",
       "elephants": "Elephants",
       "cat": "Cat",
       "dog": "Dog",
-      "mouse":"Mouse",
+      "mouse": "Mouse",
       "bird": "Bird",
       "cow": "Cow",
       "goat": "Goat",
-      "horse":"Horse",
+      "horse": "Horse",
       "elephant": "Elephant"
     }
   },
   "application": {
     "auth": {
-        "title": "Learn a language for free, forever.",
-        "newAccount": "Get started",
-        "existingAccount": "I already have an account",
-      
-        "username": "Username",
-        "password": "Password",
-        "email": "Email",
-      
-        "UsernameError": "Sorry, but your username needs to be at least 3 characters long.",
-        "PasswordError": "Sorry, but your password needs to be at least 6 characters long.",
-        "EmailError": "Sorry, but your email address is invalid.",
-        "UsernameAndPasswordError": "Sorry, but your username and password need to be at least 3 and 6 characters long respectively.",
-        "UsernameAndEmailError": "Sorry, but your username needs to be at least 3 characters long and your email address is invalid.",
-        "PasswordAndEmailError": "Sorry, but your password needs to be at least 6 characters long and your email address is invalid.",
-        "UsernameAndPasswordAndEmailError": "Sorry, but your username needs to be at least 3 characters long, your password needs to be at least 6 characters long, and your email address is invalid.",
-      
-        "login": {
-            "title": "Welcome Back!",
-            "submit": "Log in",
-            "register": "Don't have an account? Sign up",
-            "loginError": "Sorry, there was an error logging you in. Please try again.",
-            "invalidCredentials": "Sorry, but we couldn't log you in. Please check your username and password."
-        },
-      
-        "register": {
-            "title": "Create an Account",
-            "submit": "Register",
-            "login": "Already have an account? Log in",
-            "registerError": "Sorry, there was an error registering you. Please try again."
-        }
+      "title": "Learn a language for free, forever.",
+      "newAccount": "Get started",
+      "existingAccount": "I already have an account",
+      "username": "Username",
+      "password": "Password",
+      "email": "Email",
+      "UsernameError": "Sorry, but your username needs to be at least 3 characters long.",
+      "PasswordError": "Sorry, but your password needs to be at least 6 characters long.",
+      "EmailError": "Sorry, but your email address is invalid.",
+      "UsernameAndPasswordError": "Sorry, but your username and password need to be at least 3 and 6 characters long respectively.",
+      "UsernameAndEmailError": "Sorry, but your username needs to be at least 3 characters long and your email address is invalid.",
+      "PasswordAndEmailError": "Sorry, but your password needs to be at least 6 characters long and your email address is invalid.",
+      "UsernameAndPasswordAndEmailError": "Sorry, but your username needs to be at least 3 characters long, your password needs to be at least 6 characters long, and your email address is invalid.",
+      "login": {
+        "title": "Welcome Back!",
+        "submit": "Log in",
+        "register": "Don't have an account? Sign up",
+        "loginError": "Sorry, there was an error logging you in. Please try again.",
+        "invalidCredentials": "Sorry, but we couldn't log you in. Please check your username and password."
+      },
+      "register": {
+        "title": "Create an Account",
+        "submit": "Register",
+        "login": "Already have an account? Log in",
+        "registerError": "Sorry, there was an error registering you. Please try again."
+      }
     }
   }
 }

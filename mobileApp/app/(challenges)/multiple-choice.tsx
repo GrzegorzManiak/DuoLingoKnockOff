@@ -62,9 +62,9 @@ function MultipleChoiceScreen() {
 								{t(selectedAnswer === challengeContent.correctAnswer ? 'common.correct' : 'common.incorrect')}
 							</Text>
 
-							<Text style={styles.explanation}>
-								{t(challengeContent.explanation, { word: challengeContent.explanationParameters.word })}
-							</Text>
+							{/*<Text style={styles.explanation}>*/}
+							{/*	{t(challengeContent.explanation, { word: challengeContent.explanationParameters.word })}*/}
+							{/*</Text>*/}
 
 							{selectedAnswer === challengeContent.correctAnswer && (
 								<>

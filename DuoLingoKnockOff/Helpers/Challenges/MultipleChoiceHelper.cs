@@ -157,7 +157,6 @@ public class MultipleChoiceHelper : ChallengeService
             { "answerPool", answerPool },
             { "display", displayCount },
             { "correctAnswer", correctAnswer },
-            { "explanation", "challenges.explanations.hello" },
             { "explanationParameters", new Dictionary<string, string> { { "word", word } } }
         };
     }

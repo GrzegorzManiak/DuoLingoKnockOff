@@ -9,6 +9,7 @@ import { components } from '@/types';
 import { useLearningLanguage } from '@/contexts/LearningLanguageContext';
 import {codeToNativeName, idToCountry} from "@/utils/langUtil";
 import {useLocalization} from "@/hooks/useLocalization";
+import LanguageSelector from "@/components/ui/LanguageSelector";
 
 type UserProgressDto = components['schemas']['UserProgressDto'];
 type Language = components['schemas']['Language'];
@@ -114,7 +115,7 @@ function ProfileScreen() {
 					</View>
 
 					<TouchableOpacity style={styles.settingsButton}>
-						<IconSymbol name="gearshape.fill" size={24} color="#666" />
+						<LanguageSelector />
 					</TouchableOpacity>
 				</View>
 

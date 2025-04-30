@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { getChallengeTypeName, getDifficultyName } from '@/utils/challengeUtils';
 import {components} from "@/types";
+import {useLocalization} from "@/hooks/useLocalization";
 
 
 type ChallengeDto = components['schemas']['ChallengeDto'];
@@ -21,6 +22,7 @@ const ChallengeInfoSimple: React.FC<ChallengeInfoProps> = ({ challenge, style, s
 			default: return '#E5E5E5';
 		}
 	};
+	const { t } = useLocalization();
 
 	const difficultyColor = getDifficultyColor(challenge?.difficulty);
 
@@ -28,8 +30,9 @@ const ChallengeInfoSimple: React.FC<ChallengeInfoProps> = ({ challenge, style, s
 		<View style={[styles.container, style]}>
 			<View style={styles.infoContainer}>
 				<Text style={[styles.subtitle, subtitleStyle]}>
-					Type: {getChallengeTypeName(challenge?.type)} |
-					Difficulty: {getDifficultyName(challenge?.difficulty)}
+					<Text style={[styles.subtitle, subtitleStyle]}>
+						{t(`common.type.${getChallengeTypeName(challenge?.type).toLowerCase().replace(' ', '')}`)} | {t(`common.difficulty.${getDifficultyName(challenge?.difficulty).toLowerCase()}`)}
+					</Text>
 				</Text>
 				<View style={[styles.difficultyIndicator, { backgroundColor: difficultyColor }]} />
 			</View>
