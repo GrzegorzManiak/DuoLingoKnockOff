@@ -6,6 +6,8 @@ import { useLearningLanguage } from '@/hooks/useLearningLanguage';
 import { apiClient } from '@/utils/api';
 import { components } from '@/types';
 import { useSession } from '@/hooks/useSession';
+import {useLocalization} from "@/hooks/useLocalization";
+import {string} from "prop-types";
 type LeaderboardDto = components['schemas']['LeaderboardDto'];
 
 function LeaderboardScreen() {
@@ -14,6 +16,7 @@ function LeaderboardScreen() {
 	const [isLoading, setIsLoading] = useState(true);
 	const { getToken } = useSession();
 	const [error, setError] = useState<string | null>(null);
+	const { t } = useLocalization();
 
 	const getAvatarUrl = (username: string) => {
 		return `https://api.dicebear.com/7.x/avataaars/png?seed=${encodeURIComponent(username)}`;
@@ -61,10 +64,10 @@ function LeaderboardScreen() {
 			<View style={styles.container}>
 				{/* Header */}
 				<View style={styles.header}>
-					<Text style={styles.title}>Leaderboard</Text>
+					<Text style={styles.title}>{t('common.title')}</Text>
 					<View style={styles.languageSelector}>
 						<IconSymbol name="flag.fill" size={16} color="#666" style={styles.flagIcon} />
-						<Text style={styles.languageText}>{currentLanguage?.nativeName || 'Loading...'}</Text>
+						<Text style={styles.languageText}>{currentLanguage?.nativeName || t('common.loading')}</Text>
 						<IconSymbol name="chevron.down" size={20} color="#666" />
 					</View>
 				</View>
@@ -73,7 +76,7 @@ function LeaderboardScreen() {
 				<ScrollView style={styles.leaderboardList}>
 					{isLoading ? (
 						<View style={styles.loadingContainer}>
-							<Text style={styles.loadingText}>Loading...</Text>
+							<Text style={styles.loadingText}>{t('common.loading')}</Text>
 							<ActivityIndicator size="large" color="#58CC02" />
 						</View>
 					) : error ? (
@@ -82,7 +85,9 @@ function LeaderboardScreen() {
 						</View>
 					) : leaderboardData?.entries?.length === 0 ? (
 						<View style={styles.emptyContainer}>
-							<Text style={styles.emptyText}>No people on the leaderboard yet</Text>
+							<Text style={styles.emptyText}>
+								{t('leaderboard.noEntries')}
+							</Text>
 						</View>
 					) : leaderboardData?.entries?.map((user, index) => (
 						<View key={user.userId} style={[
@@ -112,7 +117,10 @@ function LeaderboardScreen() {
 								<View style={styles.userDetails}>
 									<Text style={styles.userName}>{user.usernameCased || user.username}</Text>
 									<Text style={styles.userStats}>
-										{user.totalScore} XP • {user.completedChallenges} challenges
+										{t('leaderboard.entry', {
+											xp: String(user.totalScore ?? 0),
+											completedChallenges: String(user.completedChallenges ?? 0)
+										})}
 									</Text>
 								</View>
 							</View>
@@ -127,7 +135,9 @@ function LeaderboardScreen() {
 					))}
 					{leaderboardData?.entries && leaderboardData.entries.length > 0 && (
 						<View style={styles.endOfListContainer}>
-							<Text style={styles.endOfListText}>End of leaderboard</Text>
+							<Text style={styles.endOfListText}>
+								{t('leaderboard.endOfList')}
+							</Text>
 						</View>
 					)}
 				</ScrollView>

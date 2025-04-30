@@ -21,7 +21,7 @@ const MAPPING = {
     'flag.fill': 'flag',
     'trophy.fill': 'emoji-events',
     'medal.fill': 'military-tech',
-    'textbook.fill': 'book',
+    'book': 'book',
 } as Partial<Record<
     import('expo-symbols').SymbolViewProps['name'],
     React.ComponentProps<typeof MaterialIcons>['name']

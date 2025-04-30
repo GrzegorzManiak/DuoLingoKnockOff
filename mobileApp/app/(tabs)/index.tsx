@@ -9,6 +9,7 @@ import { components } from '@/types';
 import { useSession } from '@/hooks/useSession';
 import { useRouter, useFocusEffect } from 'expo-router';
 import {ChallengeInfoSimple} from "@/components/ChallengeInfoSimple";
+import {useLocalization} from "@/hooks/useLocalization";
 
 type ChallengeDto = components['schemas']['ChallengeDto'];
 
@@ -20,6 +21,7 @@ function HomeScreen() {
 	const [completedChallenges, setCompletedChallenges] = useState<ChallengeDto[]>([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
+	const { t } = useLocalization();
 
 	const fetchChallenges = async () => {
 		if (!currentLanguage?.id) return;		
@@ -104,13 +106,17 @@ function HomeScreen() {
 
 				{/* Currently Attempting Section */}
 				<View style={[styles.section, styles.challengesContainer]}>
-					<Text style={styles.sectionTitle}>Currently Attempting</Text>
+					<Text style={styles.sectionTitle}>
+						{t('learn.currentlyAttempting')}
+					</Text>
 					{isLoading ? (
 						<ActivityIndicator size="large" color="#58CC02" />
 					) : error ? (
 						<Text style={styles.errorText}>{error}</Text>
 					) : (!attemptingChallenges || attemptingChallenges.length === 0) ? (
-						<Text style={styles.emptyText}>You are not attempting any challenges</Text>
+						<Text style={styles.emptyText}>
+							{t('learn.notAttempting')}
+						</Text>
 					) : (
 						attemptingChallenges.map((challenge) => (
 							<TouchableOpacity 
@@ -139,41 +145,59 @@ function HomeScreen() {
 
 				{/* Continue Learning Section */}
 				<View style={styles.section}>
-					<Text style={styles.sectionTitle}>Continue Learning</Text>
+					<Text style={styles.sectionTitle}>
+						{t('learn.continueLearning')}
+					</Text>
 					<View style={styles.difficultyGrid}>
 						<TouchableOpacity 
 							style={[styles.difficultyCard, styles.easyCard]}
 							onPress={() => startNewChallenge(0)}
 						>
-							<Text style={styles.difficultyText}>Easy</Text>
-							<Text style={styles.difficultySubtext}>Perfect for beginners</Text>
+							<Text style={styles.difficultyText}>
+								{t('learn.easy')}
+							</Text>
+							<Text style={styles.difficultySubtext}>
+								{t('learn.easyDescription')}
+							</Text>
 						</TouchableOpacity>
 						<TouchableOpacity 
 							style={[styles.difficultyCard, styles.mediumCard]}
 							onPress={() => startNewChallenge(1)}
 						>
-							<Text style={styles.difficultyText}>Medium</Text>
-							<Text style={styles.difficultySubtext}>Challenge yourself</Text>
+							<Text style={styles.difficultyText}>
+								{t('learn.medium')}
+							</Text>
+							<Text style={styles.difficultySubtext}>
+								{t('learn.mediumDescription')}
+							</Text>
 						</TouchableOpacity>
 						<TouchableOpacity 
 							style={[styles.difficultyCard, styles.hardCard]}
 							onPress={() => startNewChallenge(2)}
 						>
-							<Text style={styles.difficultyText}>Hard</Text>
-							<Text style={styles.difficultySubtext}>Test your skills</Text>
+							<Text style={styles.difficultyText}>
+								{t('learn.hard')}
+							</Text>
+							<Text style={styles.difficultySubtext}>
+								{t('learn.hardDescription')}
+							</Text>
 						</TouchableOpacity>
 					</View>
 				</View>
 
 				{/* Completed Challenges Section */}
 				<View style={styles.section}>
-					<Text style={styles.sectionTitle}>Completed Challenges</Text>
+					<Text style={styles.sectionTitle}>
+						{t('learn.completedChallenges')}
+					</Text>
 					{isLoading ? (
 						<ActivityIndicator size="large" color="#58CC02" />
 					) : error ? (
 						<Text style={styles.errorText}>{error}</Text>
 					) : (!completedChallenges || completedChallenges.length === 0) ? (
-						<Text style={styles.emptyText}>You haven't completed any challenges yet</Text>
+						<Text style={styles.emptyText}>
+							{t('learn.noCompletedChallenges')}
+						</Text>
 					) : (
 						<View style={styles.completedList}>
 							{completedChallenges.map((challenge) => (

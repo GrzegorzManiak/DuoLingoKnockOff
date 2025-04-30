@@ -6,10 +6,11 @@ import { HapticTab } from '@/components/HapticTab';
 import { IconSymbol } from '@/components/ui/IconSymbol';
 import TabBarBackground from '@/components/ui/TabBarBackground';
 import { Colors } from '@/constants/Colors';
+import {useLocalization} from "@/hooks/useLocalization";
 
 function TabLayout() {
-
-  return (
+	const { t } = useLocalization();
+	return (
 	<Tabs
 		screenOptions={{
 			tabBarActiveTintColor: Colors['light'].tint,
@@ -27,15 +28,15 @@ function TabLayout() {
 		<Tabs.Screen
 			name="index"
 			options={{
-				title: 'Learn',
-				tabBarIcon: ({ color }) => <IconSymbol size={28} name="book.fill" color={color} />,
+				title: t('common.home'),
+				tabBarIcon: ({ color }) => <IconSymbol size={28} name="book" color={color} />,
 			}}
 		/>
 
 		<Tabs.Screen
 			name="leaderboard"
 			options={{
-				title: 'Rank',
+				title: t('common.leaderboard'),
 				tabBarIcon: ({ color }) => <IconSymbol size={28} name="trophy.fill" color={color} />,
 			}}
 		/>
@@ -43,7 +44,7 @@ function TabLayout() {
 		<Tabs.Screen
 			name="profile"
 			options={{
-				title: 'Profile',
+				title: t('common.profile'),
 				tabBarIcon: ({ color }) => <IconSymbol size={28} name="person.fill" color={color} />,
 			}}
 		/>

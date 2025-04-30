@@ -2,11 +2,13 @@ import React, { useEffect } from 'react';
 import { Stack, useRouter } from 'expo-router';
 import { useLocalSearchParams } from 'expo-router';
 import { useChallengeData } from '@/hooks/useChallengeData';
+import {useLocalization} from "@/hooks/useLocalization";
 
 function ChallengesLayout() {
 	const params = useLocalSearchParams();
 	const { challengeId, languageId } = params;
 	const router = useRouter();
+	const { t } = useLocalization();
 
 	// @ts-ignore
 	const { challenge, isLoading, error } = useChallengeData(challengeId, languageId);
@@ -56,7 +58,7 @@ function ChallengesLayout() {
 			<Stack.Screen
 				name="index"
 				options={{
-					title: 'Challenge',
+					title: t('')
 				}}
 			/>
 

@@ -8,6 +8,7 @@ import {apiClient, getApiBaseUrl} from '@/utils/api';
 import { components } from '@/types';
 import { useLearningLanguage } from '@/contexts/LearningLanguageContext';
 import {codeToNativeName, idToCountry} from "@/utils/langUtil";
+import {useLocalization} from "@/hooks/useLocalization";
 
 type UserProgressDto = components['schemas']['UserProgressDto'];
 type Language = components['schemas']['Language'];
@@ -19,6 +20,7 @@ function ProfileScreen() {
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
 	const { getToken } = useSession();
+	const { t } = useLocalization();
 
 	const getAvatarUrl = (username: string) => {
 		return `https://api.dicebear.com/7.x/avataaars/png?seed=${encodeURIComponent(username)}`;
@@ -102,7 +104,11 @@ function ProfileScreen() {
 							<Text style={styles.email}>{user?.email || 'Email'}</Text>
 							<View style={styles.streakContainer}>
 								<IconSymbol name="flame.fill" size={16} color="#FF9500" />
-								<Text style={styles.streakText}>{progress?.streak?.currentStreak || 0} day streak</Text>
+								<Text style={styles.streakText}>{
+									t('profile.streak', {
+										day: String(progress?.streak?.currentStreak || 0)
+									})}
+								</Text>
 							</View>
 						</View>
 					</View>
@@ -119,24 +125,38 @@ function ProfileScreen() {
 							<IconSymbol name="star.fill" size={24} color="#58CC02" />
 						</View>
 						<Text style={styles.statValue}>{totalXP}</Text>
-						<Text style={styles.statLabel}>Total XP</Text>
+						<Text style={styles.statLabel}>
+							{t('profile.totalXP')}
+						</Text>
 					</View>
 					<View style={styles.statCard}>
 						<View style={styles.statIconContainer}>
 							<IconSymbol name="checkmark.circle.fill" size={24} color="#58CC02" />
 						</View>
 						<Text style={styles.statValue}>{totalLessons}</Text>
-						<Text style={styles.statLabel}>Challenges</Text>
+						<Text style={styles.statLabel}>
+							{t('profile.totalLessons')}
+						</Text>
 					</View>
 				</View>
 
 				{/* Overall Progress */}
 				<View style={styles.section}>
-					<Text style={styles.sectionTitle}>Overall Progress</Text>
+					<Text style={styles.sectionTitle}>
+						{t('profile.overallProgress')}
+					</Text>
 					<View style={styles.progressCard}>
 						<View style={styles.progressHeader}>
-							<Text style={styles.progressTitle}>Level {overallLevel}</Text>
-							<Text style={styles.progressValue}>{totalXP} XP</Text>
+							<Text style={styles.progressTitle}>{
+								t('profile.level', {
+									level: String(overallLevel),
+								})
+							}</Text>
+							<Text style={styles.progressValue}>{
+								t('profile.xp', {
+									xp: String(totalXP),
+								})
+							}</Text>
 						</View>
 						<View style={styles.progressBar}>
 							<View style={[styles.progressFill, { width: `${levelProgress}%` }]}>
@@ -151,7 +171,9 @@ function ProfileScreen() {
 
 				{/* Language Progress */}
 				<View style={styles.section}>
-					<Text style={styles.sectionTitle}>Language Progress</Text>
+					<Text style={styles.sectionTitle}>{
+						t('profile.languageProgress')
+					}</Text>
 					{isLoading ? (
 						<ActivityIndicator size="large" color="#58CC02" />
 					) : error ? (
@@ -159,7 +181,9 @@ function ProfileScreen() {
 					) : !progress?.languageProgress?.length ? (
 						<View style={styles.emptyState}>
 							<IconSymbol name="book.closed.fill" size={40} color="#666" />
-							<Text style={styles.emptyStateText}>You haven't started learning any languages yet</Text>
+							<Text style={styles.emptyStateText}>{
+								t('profile.notStarted')
+							}</Text>
 						</View>
 					) : progress.languageProgress.map((lang) => {
 						const langXP = lang.totalScore || 0;
@@ -176,12 +200,24 @@ function ProfileScreen() {
 										/>
 										<View>
 											<Text style={styles.languageName}>{codeToNativeName(countryCode)}</Text>
-											<Text style={styles.languageLevel}>Level {calculateLevel(langXP)}</Text>
+											<Text style={styles.languageLevel}>{
+												t('profile.level', {
+													level: String(calculateLevel(langXP)),
+												})
+											}</Text>
 										</View>
 									</View>
 									<View style={styles.languageStats}>
-										<Text style={styles.languageXP}>{langXP} XP</Text>
-										<Text style={styles.languageChallenges}>{langChallenges} challenges</Text>
+										<Text style={styles.languageXP}>{
+											t('profile.xp', {
+												xp: String(langXP),
+											})
+										}</Text>
+										<Text style={styles.languageChallenges}>{
+											t('profile.challangesCompleted', {
+												completedChallenges: String(langChallenges),
+											})
+										}</Text>
 									</View>
 								</View>
 								<View style={styles.progressBar}>
@@ -197,7 +233,9 @@ function ProfileScreen() {
 				{/* Logout Button */}
 				<TouchableOpacity style={styles.logoutButton} onPress={signOut}>
 					<IconSymbol name="rectangle.portrait.and.arrow.right" size={20} color="#FF6B6B" />
-					<Text style={styles.logoutText}>Log Out</Text>
+					<Text style={styles.logoutText}>{
+						t('profile.logout')
+					}</Text>
 				</TouchableOpacity>
 			</ScrollView>
 		</SafeAreaView>
