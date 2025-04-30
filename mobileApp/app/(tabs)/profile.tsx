@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useFocusEffect } from 'expo-router';
 import { StyleSheet, View, Text, ScrollView, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
 import { useSession } from '@/hooks/useSession';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { IconSymbol } from '@/components/ui/IconSymbol';
-import { apiClient } from '@/utils/api';
+import {apiClient, getApiBaseUrl} from '@/utils/api';
 import { components } from '@/types';
 import { useLearningLanguage } from '@/contexts/LearningLanguageContext';
+import {codeToNativeName, idToCountry} from "@/utils/langUtil";
 
 type UserProgressDto = components['schemas']['UserProgressDto'];
 type Language = components['schemas']['Language'];
@@ -162,19 +164,18 @@ function ProfileScreen() {
 					) : progress.languageProgress.map((lang) => {
 						const langXP = lang.totalScore || 0;
 						const langChallenges = lang.completedChallenges || 0;
-						const language = languages[lang.languageId || 0];
+						const countryCode = idToCountry(lang.languageId);
+						console.log("Language: ", lang,  `${getApiBaseUrl()}/static/images/flags/${countryCode}.png`)
 						return (
 							<View key={lang.languageId} style={styles.languageCard}>
 								<View style={styles.languageHeader}>
 									<View style={styles.languageInfo}>
-										{language?.flagImageUrl && (
-											<Image 
-												source={{ uri: `http://10.0.2.2:5165/static/${language.flagImageUrl}` }}
-												style={styles.languageFlag}
-											/>
-										)}
+										<Image
+											source={{ uri: `${getApiBaseUrl()}/static/images/flags/${countryCode}.png` }}
+											style={styles.languageFlag}
+										/>
 										<View>
-											<Text style={styles.languageName}>{language?.nativeName || `Language ${lang.languageId}`}</Text>
+											<Text style={styles.languageName}>{codeToNativeName(countryCode)}</Text>
 											<Text style={styles.languageLevel}>Level {calculateLevel(langXP)}</Text>
 										</View>
 									</View>

@@ -23,7 +23,6 @@
 
     <ItemGroup>
       <Folder Include="Static\images\difficulty\" />
-      <Folder Include="Static\images\flags\" />
     </ItemGroup>
 
 </Project>

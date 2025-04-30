@@ -9,6 +9,27 @@ function nameToCode(name: string): string {
 	return name;
 }
 
+function idToCountry(id?: number): string {
+	switch (id) {
+		case 1: return "es";
+		case 2: return "fr";
+		case 3: return "de";
+	}
+	return "";
+}
+
+function codeToNativeName(code: string): string {
+	switch (code) {
+		case "fr": return "Français";
+		case "en": return "English";
+		case "de": return "Deutsch";
+		case "es": return "Español";
+	}
+	return code;
+}
+
 export {
 	nameToCode,
+	idToCountry,
+	codeToNativeName
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { StyleSheet, View, Text, ScrollView, TouchableOpacity, ActivityIndicator, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { SlimLanguageSelector } from '@/components/SlimLanguageSelector';
@@ -7,7 +7,7 @@ import { useLearningLanguage } from '@/contexts/LearningLanguageContext';
 import { apiClient } from '@/utils/api';
 import { components } from '@/types';
 import { useSession } from '@/hooks/useSession';
-import { useRouter } from 'expo-router';
+import { useRouter, useFocusEffect } from 'expo-router';
 import {ChallengeInfoSimple} from "@/components/ChallengeInfoSimple";
 
 type ChallengeDto = components['schemas']['ChallengeDto'];
@@ -52,9 +52,24 @@ function HomeScreen() {
 		}
 	};
 
+	// Initial data fetch on mount
 	useEffect(() => {
 		fetchChallenges();
 	}, [currentLanguage?.id, getToken]);
+	
+	// Refresh data whenever the screen comes into focus
+	useFocusEffect(
+		useCallback(() => {
+			// Refresh data when screen is focused
+			console.debug('Learn screen focused - refreshing data');
+			fetchChallenges();
+			
+			return () => {
+				// This runs when the screen is unfocused
+				console.debug('Learn screen unfocused');
+			};
+		}, [currentLanguage?.id, getToken])
+	);
 
 	const startNewChallenge = async (difficulty: 0 | 1 | 2) => {
 		if (!currentLanguage?.id) return;
@@ -103,7 +118,7 @@ function HomeScreen() {
 								onPress={() => {
 									if (challenge?.id && currentLanguage?.id) {
 										router.push({
-											pathname: '/(challenges)/index' as any,
+											pathname: '/(challenges)' as any,
 											params: { 
 												challengeId: challenge.id,
 												languageId: currentLanguage.id
