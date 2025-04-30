@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "mobileApp",
-    "slug": "mobileApp",
+    "name": "Duolingo Knockoff",
+    "slug": "duolingoknockoff",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -37,6 +37,14 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "092aed06-e766-4bda-9048-87fc872ce70d"
+      }
     }
   }
 }
