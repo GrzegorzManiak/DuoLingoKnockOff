@@ -1,0 +1,49 @@
+name: Deploy .NET Service to Amazon ECS
+on:
+  push:
+    branches:
+      - release
+env:
+  AWS_REGION: eu-west-1
+  ECR_REPOSITORY: your-app-name/api
+  ECS_CLUSTER: Deployment
+  ECS_SERVICE: api-service
+  
+permissions:
+  contents: read
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
+        
+    - name: Login to Amazon ECR
+      uses: aws-actions/amazon-ecr-login@v1
+      
+    - name: Build and Push .NET service
+      run: |
+        docker build -t ${{ secrets.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }} -f ./deployment/Dockerfile .
+        docker push ${{ secrets.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }}
+        
+    - name: Fill in the image for task definition
+      id: task-def
+      uses: aws-actions/amazon-ecs-render-task-definition@v1
+      with:
+        task-definition: ./deployment/ecs-task-definition.json
+        container-name: api-service
+        image: ${{ secrets.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }}
+        
+    - name: Deploy service
+      uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+      with:
+        task-definition: ${{ steps.task-def.outputs.task-definition }}
+        service: ${{ env.ECS_SERVICE }}
+        cluster: ${{ env.ECS_CLUSTER }}
