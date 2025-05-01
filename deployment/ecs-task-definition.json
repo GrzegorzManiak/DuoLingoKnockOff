@@ -1,0 +1,22 @@
+{
+  "family": "ca-service",
+  "requiresCompatibilities": ["FARGATE"],
+  "networkMode": "awsvpc",
+  "memory": "3072",
+  "cpu": "1024",
+  "executionRoleArn": "arn:aws:iam::571708581372:role/ecsTaskExecutionRole",
+  "containerDefinitions": [
+	{
+	  "name": "ca-service",
+	  "image": "571708581372.dkr.ecr.eu-west-1.amazonaws.com/ca2/api",
+	  "essential": true,
+	  "portMappings": [
+		{
+		  "containerPort": 80,
+		  "hostPort": 80,
+		  "protocol": "tcp"
+		}
+	  ]
+	}
+  ]
+}

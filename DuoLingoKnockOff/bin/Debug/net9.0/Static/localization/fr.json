@@ -1,0 +1,77 @@
+{
+  "common": {
+    "correct": "Correct !",
+    "incorrect": "Incorrect !",
+    "challengeCompleted": "Vous avez terminé le défi ! Retournez au menu principal.",
+    "goBack": "Retour"
+  },
+  "challenges": {
+    "questions": {
+      "whatDoesXMean": "Que signifie {{word}} ?",
+      "whatIsThePluralOfX": "Quel est le pluriel de {{word}} ?"
+    },
+    "answers": {
+      "hello": "Bonjour",
+      "goodbye": "Au revoir",
+      "thankYou": "Merci",
+      "please": "S'il vous plaît",
+      "yes": "Oui",
+      "no": "Non",
+      "maybe": "Peut-être",
+      "sure": "Bien sûr",
+      "definitely": "Absolument",
+      "computation": "Calcul",
+      "algorithm": "Algorithme",
+      "data": "Données",
+      "information": "Information",
+      "cats": "Chats",
+      "dogs": "Chiens",
+      "mice": "Souris",
+      "birds": "Oiseaux",
+      "fish": "Poissons",
+      "cows": "Vaches",
+      "sheep": "Moutons",
+      "goats": "Chèvres",
+      "horses": "Chevaux",
+      "elephants": "Éléphants",
+      "cat": "Chat",
+      "dog": "Chien",
+      "mouse": "Souris",
+      "bird": "Oiseau",
+      "cow": "Vache",
+      "goat": "Chèvre",
+      "horse": "Cheval",
+      "elephant": "Éléphant"
+    }
+  },
+  "application": {
+    "auth": {
+      "title": "Apprenez une langue gratuitement, pour toujours.",
+      "newAccount": "Commencer",
+      "existingAccount": "J'ai déjà un compte",
+      "username": "Nom d'utilisateur",
+      "password": "Mot de passe",
+      "email": "Email",
+      "UsernameError": "Désolé, mais votre nom d'utilisateur doit comporter au moins 3 caractères.",
+      "PasswordError": "Désolé, mais votre mot de passe doit comporter au moins 6 caractères.",
+      "EmailError": "Désolé, mais votre adresse e-mail n'est pas valide.",
+      "UsernameAndPasswordError": "Désolé, mais votre nom d'utilisateur et votre mot de passe doivent comporter respectivement au moins 3 et 6 caractères.",
+      "UsernameAndEmailError": "Désolé, mais votre nom d'utilisateur doit comporter au moins 3 caractères et votre adresse e-mail n'est pas valide.",
+      "PasswordAndEmailError": "Désolé, mais votre mot de passe doit comporter au moins 6 caractères et votre adresse e-mail n'est pas valide.",
+      "UsernameAndPasswordAndEmailError": "Désolé, mais votre nom d'utilisateur doit comporter au moins 3 caractères, votre mot de passe doit comporter au moins 6 caractères et votre adresse e-mail n'est pas valide.",
+      "login": {
+        "title": "Bon retour !",
+        "submit": "Se connecter",
+        "register": "Vous n'avez pas de compte ? S'inscrire",
+        "loginError": "Désolé, une erreur s'est produite lors de la connexion. Veuillez réessayer.",
+        "invalidCredentials": "Désolé, nous n'avons pas pu vous connecter. Veuillez vérifier votre nom d'utilisateur et votre mot de passe."
+      },
+      "register": {
+        "title": "Créer un compte",
+        "submit": "S'inscrire",
+        "login": "Vous avez déjà un compte ? Se connecter",
+        "registerError": "Désolé, une erreur s'est produite lors de l'inscription. Veuillez réessayer."
+      }
+    }
+  }
+}
