@@ -5,9 +5,9 @@ on:
       - release
 env:
   AWS_REGION: eu-west-1
-  ECR_REPOSITORY: your-app-name/api
-  ECS_CLUSTER: Deployment
-  ECS_SERVICE: api-service
+  ECR_REPOSITORY: ca2/api
+  ECS_CLUSTER: CaCluster
+  ECS_SERVICE: ca-service
   
 permissions:
   contents: read
