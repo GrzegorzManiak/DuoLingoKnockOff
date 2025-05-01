@@ -38,7 +38,7 @@ jobs:
       uses: aws-actions/amazon-ecs-render-task-definition@v1
       with:
         task-definition: ./deployment/ecs-task-definition.json
-        container-name: api-service
+        container-name: ca-service
         image: ${{ secrets.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }}
         
     - name: Deploy service
