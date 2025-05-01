@@ -1,0 +1,6 @@
+appId: com.anonymous.duolingoknockoff
+---
+- launchApp
+- tapOn: "Home"
+- tapOn: "Perfect for beginners!"
+- assertVisible: "Go back"

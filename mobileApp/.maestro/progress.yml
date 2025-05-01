@@ -1,0 +1,5 @@
+appId: com.anonymous.duolingoknockoff
+---
+- launchApp
+- tapOn: "Profile"
+- assertVisible: "level"
