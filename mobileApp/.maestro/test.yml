@@ -1,0 +1,4 @@
+appId: com.anonymous.duolingoknockoff
+---
+- launchApp
+- assertVisible: 'Welcome!'
