@@ -1,0 +1,11 @@
+appId: com.anonymous.duolingoknockoff
+---
+- launchApp
+- tapOn: "Home"
+- tapOn:
+    id: "language-selector"
+- tapOn: "German"
+- assertVisible: "Gesamtfortschritt"
+- tapOn:
+    id: "language-selector"
+- tapOn: "English"

@@ -34,7 +34,7 @@ const SlimLanguageSelector: React.FC = () => {
 				onPress={handleOpenModal}
 			>
 				<View style={styles.buttonContent}>
-					<View style={styles.languageInfo}>
+					<View style={styles.languageInfo} id="language-selector" testID="language-selector">
 						{currentLanguage?.flagImageUrl && (
 							<Image 
 								source={{ uri: `${getApiBaseUrl()}/static/${currentLanguage.flagImageUrl}` }}

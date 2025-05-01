@@ -37,8 +37,10 @@ function LanguageSelector() {
 					style={styles.modalOverlay}
 					activeOpacity={1}
 					onPress={() => setIsOpen(false)}
+					id="local-language-selector"
+					testID="local-language-selector"
 				>
-					<View style={styles.dropdown}>
+					<View style={styles.dropdown} >
 						{LANGUAGES.map((lang) => (
 							<TouchableOpacity
 								key={lang.code}
