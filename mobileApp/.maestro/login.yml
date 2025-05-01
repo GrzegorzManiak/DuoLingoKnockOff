@@ -1,0 +1,10 @@
+appId: com.anonymous.duolingoknockoff
+---
+- launchApp
+- tapOn: "I ALREADY HAVE AN ACCOUNT"
+- tapOn: "Username"
+- inputText: "greg"
+- tapOn: "Password"
+- inputText: "greggreg"
+- tapOn: "Log in"
+- assertVisible: "Profile"

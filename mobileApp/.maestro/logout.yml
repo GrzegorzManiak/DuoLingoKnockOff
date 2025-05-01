@@ -1,0 +1,7 @@
+appId: com.anonymous.duolingoknockoff
+---
+- launchApp
+- tapOn: "Profile"
+- scroll
+- tapOn: "Log out"
+- assertVisible: "GET STARTED"

@@ -1,0 +1,8 @@
+appId: com.anonymous.duolingoknockoff
+---
+- launchApp
+- tapOn: "Profile"
+- tapOn:
+    id: "local-language-selector"
+- tapOn: "Deutsch"
+- assertVisible: "Deutsch"

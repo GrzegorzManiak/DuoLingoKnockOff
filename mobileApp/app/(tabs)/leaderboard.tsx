@@ -64,7 +64,7 @@ function LeaderboardScreen() {
 			<View style={styles.container}>
 				{/* Header */}
 				<View style={styles.header}>
-					<Text style={styles.title}>{t('common.title')}</Text>
+					<Text style={styles.title}>{t('leaderboard.title')}</Text>
 					<View style={styles.languageSelector}>
 						<IconSymbol name="flag.fill" size={16} color="#666" style={styles.flagIcon} />
 						<Text style={styles.languageText}>{currentLanguage?.nativeName || t('common.loading')}</Text>

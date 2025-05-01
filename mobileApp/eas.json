@@ -3,19 +3,35 @@
 	"preview": {
 	  "android": {
 		"buildType": "apk"
+	  },
+	  "env": {
+		"API_URL": "https://ead.meshtail.com/"
 	  }
 	},
 	"preview2": {
 	  "android": {
 		"gradleCommand": ":app:assembleRelease"
+	  },
+	  "env": {
+		"API_URL": "https://ead.meshtail.com/"
 	  }
 	},
 	"preview3": {
-	  "developmentClient": true
+	  "developmentClient": true,
+	  "env": {
+		"API_URL": "https://ead.meshtail.com/"
+	  }
 	},
 	"preview4": {
-	  "distribution": "internal"
+	  "distribution": "internal",
+	  "env": {
+		"API_URL": "https://ead.meshtail.com/"
+	  }
 	},
-	"production": {}
+	"production": {
+	  "env": {
+		"API_URL": "https://ead.meshtail.com/"
+	  }
+	}
   }
 }
