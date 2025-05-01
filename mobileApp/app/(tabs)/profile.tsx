@@ -165,7 +165,10 @@ function ProfileScreen() {
 							</View>
 						</View>
 						<Text style={styles.progressSubtitle}>
-							{Math.floor(levelProgress)}% to level {overallLevel + 1}
+							{t('profile.levelProgress', {
+								levelProgress: String(100 - (levelProgress ?? 0)),
+								level: String(overallLevel),
+							})}
 						</Text>
 					</View>
 				</View>

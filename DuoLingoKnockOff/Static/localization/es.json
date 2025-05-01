@@ -28,7 +28,8 @@
     "challangesCompleted": "{{completedChallenges}} Desafíos",
     "notStarted": "Todavía no has empezado a aprender ningún idioma",
     "languageProgress": "Progreso del idioma",
-    "logout": "Cerrar sesión"
+    "logout": "Cerrar sesión",
+    "levelProgress": "{{levelProgress}}% hasta el nivel {{level}}"
   },
   "common": {
     "type": {

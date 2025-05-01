@@ -3,7 +3,8 @@ import type { paths } from '@/types';
 import { Platform } from 'react-native';
 
 // --- Base API URL Configuration ---
-let resolvedApiBaseUrl = process.env.EXPO_PUBLIC_API_URL;
+let resolvedApiBaseUrl = process.env.API_URL;
+resolvedApiBaseUrl = 'https://ead.meshtail.com'
 
 // -- no config, set default based on platform DEVELOPMENT ONLY
 if (!resolvedApiBaseUrl) {

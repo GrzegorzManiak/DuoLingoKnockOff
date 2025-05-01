@@ -29,6 +29,7 @@
     "notStarted": "Du hast noch nicht angefangen, Sprachen zu lernen",
     "languageProgress": "Sprachfortschritt",
     "logout": "Abmelden"
+    "levelProgress": "{{levelProgress}}% bis Level {{level}}"
   },
   "common": {
     "type": {
