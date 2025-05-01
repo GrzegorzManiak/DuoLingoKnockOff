@@ -108,12 +108,17 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+// !!!!!NOTE!!!!! I SPECIFICALLY LEFT THESE HERE
+// FOR THE CA SO AS I AM BUILDING WITH PROD TAGS
+// if (app.Environment.IsDevelopment())
+// {
+//     app.MapOpenApi();
+//     app.UseSwagger();
+//     app.UseSwaggerUI();
+// }
+app.MapOpenApi();
+app.UseSwagger();
+app.UseSwaggerUI();
 
 // -- STATIC FILES -- //
 app.UseStaticFiles(new StaticFileOptions
